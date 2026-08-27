@@ -32,7 +32,7 @@ the site without touching components. The shapes are defined in
 
 - [`site.json`](src/lib/data/site.json) — club name, tagline, mission, social links, and the hero stat row.
 - [`projects.json`](src/lib/data/projects.json) — project cards. `status` is one of `active`, `shipped`, or `exploring`. `githubUrl` and `demoUrl` are optional.
-- [`team.json`](src/lib/data/team.json) — members. Set `isLead: true` for executive board (shown first). `githubUrl` and `linkedinUrl` are optional. Avatars fall back to initials.
+- [`team.json`](src/lib/data/team.json) — e-board. `githubUrl` and `linkedinUrl` are optional. Avatars fall back to initials.
 - [`meetings.json`](src/lib/data/meetings.json) — `upcoming` and `past` arrays. Dates are ISO strings; `rsvpUrl` and `recapUrl` are optional.
 - [`faq.json`](src/lib/data/faq.json) — questions in the About section.
 

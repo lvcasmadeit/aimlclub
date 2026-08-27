@@ -1,18 +1,3 @@
-export interface SiteData {
-  name: string;
-  university: string;
-  tagline: string;
-  mission: string;
-  email: string;
-  discord: string;
-  instagram: string;
-  github: string;
-  linkedin: string;
-  campusGroups: string;
-  joinUrl: string;
-  stats: { label: string; value: string }[];
-}
-
 export interface Project {
   id: string;
   title: string;
@@ -27,7 +12,6 @@ export interface TeamMember {
   id: string;
   name: string;
   role: string;
-  isLead: boolean;
   githubUrl?: string;
   linkedinUrl?: string;
 }

@@ -28,16 +28,14 @@ export function Projects() {
           {(projects as Project[]).map((project) => (
             <RevealItem key={project.id} className="h-full">
               <Card className="flex h-full flex-col">
-                <div className="flex items-center justify-between">
-                  <span
-                    className={cn(
-                      "rounded-full border px-3 py-1 font-mono text-[10px] uppercase tracking-[0.2em]",
-                      statusStyles[project.status],
-                    )}
-                  >
-                    {project.status}
-                  </span>
-                </div>
+                <span
+                  className={cn(
+                    "w-fit rounded-full border px-3 py-1 font-mono text-[10px] uppercase tracking-[0.2em]",
+                    statusStyles[project.status],
+                  )}
+                >
+                  {project.status}
+                </span>
 
                 <h3 className="mt-5 text-xl font-semibold">{project.title}</h3>
                 <p className="mt-3 flex-1 text-sm leading-relaxed text-muted">

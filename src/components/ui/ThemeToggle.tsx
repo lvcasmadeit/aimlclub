@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { cn } from "@/lib/utils";
 
 type Theme = "dark" | "light";
 
@@ -39,7 +38,7 @@ function MoonIcon() {
   );
 }
 
-export function ThemeToggle({ className }: { className?: string }) {
+export function ThemeToggle() {
   // null until mounted, since the real theme is set by the pre-paint script
   // on the client and is unknown during server render.
   const [theme, setTheme] = useState<Theme | null>(null);
@@ -68,10 +67,7 @@ export function ThemeToggle({ className }: { className?: string }) {
       aria-label={
         theme ? `Switch to ${theme === "light" ? "dark" : "light"} mode` : "Toggle color theme"
       }
-      className={cn(
-        "flex h-9 w-9 items-center justify-center rounded-lg border border-border text-muted transition-colors hover:border-accent/60 hover:text-foreground",
-        className,
-      )}
+      className="flex h-9 w-9 items-center justify-center rounded-lg border border-border text-muted transition-colors hover:border-accent/60 hover:text-foreground"
     >
       {theme === "light" ? <MoonIcon /> : <SunIcon />}
     </button>
