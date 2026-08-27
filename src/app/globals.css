@@ -1,26 +1,140 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #08080c;
+  --background-soft: #111118;
+  --foreground: #ededf2;
+  --muted: #8a8a99;
+  --border: rgba(255, 255, 255, 0.08);
+  --accent: #f59e0b;
+  --accent-soft: rgba(245, 158, 11, 0.16);
+  --violet: #e07a5f;
+  --hover: rgba(255, 255, 255, 0.04);
+  --tag: rgba(255, 255, 255, 0.04);
+  --scan-line: rgba(245, 158, 11, 0.1);
+}
+
+.light {
+  --background: #f6f5f1;
+  --background-soft: #ffffff;
+  --foreground: #16161a;
+  --muted: #5b5b66;
+  --border: rgba(0, 0, 0, 0.1);
+  --accent: #c2410c;
+  --accent-soft: rgba(194, 65, 12, 0.12);
+  --violet: #9a3412;
+  --hover: rgba(0, 0, 0, 0.04);
+  --tag: rgba(0, 0, 0, 0.05);
+  --scan-line: rgba(194, 65, 12, 0.09);
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-background-soft: var(--background-soft);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-violet: var(--violet);
+  --color-hover: var(--hover);
+  --color-tag: var(--tag);
+  --font-sans: var(--font-space-grotesk);
+  --font-mono: var(--font-plex-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans), system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease;
+  }
+
+  /* Anchored sections sit below the sticky header. */
+  section[id] {
+    scroll-margin-top: 5rem;
+  }
+
+  ::selection {
+    background: var(--accent-soft);
+    color: var(--foreground);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Hero-only scan grid: thin HUD lines that fade toward the edges. */
+.hero-scan {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--scan-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--scan-line) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(
+    ellipse 80% 70% at 50% 38%,
+    #000 18%,
+    transparent 72%
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse 80% 70% at 50% 38%,
+    #000 18%,
+    transparent 72%
+  );
+}
+
+/* CSS-only keyword marquee for the hero/footer strips. */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 32s linear infinite;
+}
+
+/* Slow drifting gradient blob behind the hero. */
+@keyframes float-blob {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(4%, -6%) scale(1.08);
+  }
+}
+
+.animate-float-blob {
+  animation: float-blob 18s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .animate-marquee,
+  .animate-float-blob {
+    animation: none;
+  }
 }

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "president",
+    "name": "Jonathan Doughty",
+    "role": "President",
+    "isLead": true
+  },
+  {
+    "id": "vp",
+    "name": "Lucas Brandao",
+    "role": "Vice President",
+    "isLead": true
+  },
+  {
+    "id": "secretary",
+    "name": "Sowndaryan Jayaprakash Anand",
+    "role": "Secretary",
+    "isLead": true
+  },
+  {
+    "id": "treasurer",
+    "name": "Mohammed Aldulaimy",
+    "role": "Treasurer",
+    "isLead": true
+  }
+]
