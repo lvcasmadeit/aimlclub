@@ -1,5 +1,6 @@
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { NextEventBar } from "@/components/layout/NextEventBar";
 import { Hero } from "@/components/sections/Hero";
 import { About } from "@/components/sections/About";
 import { Projects } from "@/components/sections/Projects";
@@ -17,15 +18,18 @@ export default function Home() {
         Skip to content
       </a>
       <Header />
-      <main>
-        <Hero />
-        <About />
-        <Projects />
-        <Meetings />
-        <Team />
-        <Contact />
-      </main>
-      <Footer />
+      <div className="pt-16">
+        <NextEventBar />
+        <main>
+          <Hero />
+          <About />
+          <Meetings />
+          <Projects />
+          <Team />
+          <Contact />
+        </main>
+        <Footer />
+      </div>
     </>
   );
 }

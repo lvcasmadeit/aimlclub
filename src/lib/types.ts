@@ -8,6 +8,11 @@ export interface Project {
   demoUrl?: string;
 }
 
+export interface ProjectsNotice {
+  title: string;
+  subtitle: string;
+}
+
 export interface TeamMember {
   id: string;
   name: string;
@@ -37,6 +42,10 @@ export interface MeetingsData {
   upcoming: UpcomingMeeting[];
   past: PastMeeting[];
 }
+
+export type TimelineEntry =
+  | (PastMeeting & { kind: "past" })
+  | (UpcomingMeeting & { kind: "upcoming" });
 
 export interface FaqItem {
   question: string;

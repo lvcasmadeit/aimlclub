@@ -24,7 +24,7 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex min-h-screen items-center overflow-hidden"
+      className="relative flex min-h-[calc(100svh-4rem)] items-center overflow-hidden"
     >
       <div aria-hidden className="hero-scan" />
       <div
@@ -46,7 +46,7 @@ export function Hero() {
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-background" />
 
       <motion.div
-        className="relative mx-auto w-full max-w-6xl px-6 pt-24"
+        className="relative mx-auto w-full max-w-6xl px-6 pt-12"
         variants={container}
         initial={reduceMotion ? false : "hidden"}
         animate="visible"

@@ -36,13 +36,10 @@ export function About() {
           <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
             We run like a startup, not a study group.
           </h2>
-          <p className="mt-6 text-lg leading-relaxed text-muted">
-            {site.mission}
-          </p>
           <p className="mt-4 leading-relaxed text-muted">
-            A group of like-minded computer science majors, and plenty of
-            students who are not, exploring how AI and machine learning are
-            changing the world.
+          Our community brings together computer science students and students from across
+           the university who are curious about AI and machine learning.
+            Whether you’re experienced or just getting started, there’s a place for you here.
           </p>
         </Reveal>
 

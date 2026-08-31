@@ -6,10 +6,10 @@
   --foreground: #ededf2;
   --muted: #8a8a99;
   --border: rgba(255, 255, 255, 0.08);
-  --accent: #f59e0b;
-  --accent-soft: rgba(245, 158, 11, 0.16);
+  --accent: #c2410c;
+  --accent-soft: rgba(194, 65, 12, 0.12);
   --violet: #e07a5f;
-  --hover: rgba(255, 255, 255, 0.04);
+  --hover: #9a3412;
   --tag: rgba(255, 255, 255, 0.04);
   --scan-line: rgba(245, 158, 11, 0.1);
 }
@@ -128,13 +128,29 @@
   animation: float-blob 18s ease-in-out infinite;
 }
 
+/* Focused meeting node/card: pulse the glow layer's opacity. */
+@keyframes event-glow {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.animate-event-glow {
+  animation: event-glow 1.8s ease-in-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
 
   .animate-marquee,
-  .animate-float-blob {
+  .animate-float-blob,
+  .animate-event-glow {
     animation: none;
   }
 }

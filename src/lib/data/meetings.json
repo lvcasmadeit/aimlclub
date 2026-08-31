@@ -8,11 +8,11 @@
       "description": "Our first event of the semester. Stop by, meet the e-board, and get involved with the AI & ML Club."
     },
     {
-      "id": "upcoming-tbd",
-      "title": "TBD",
+      "id": "kickoff-meeting",
+      "title": "AI & ML Club kickoff meeting",
       "date": "TBD",
       "location": "TBD",
-      "description": "TBD"
+      "description": "Semester kickoff. Meet the e-board, hear the plan, and pick a project pod."
     }
   ],
   "past": [
