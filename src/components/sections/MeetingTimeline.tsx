@@ -79,43 +79,39 @@ export function MeetingTimeline({ entries, focusId }: MeetingTimelineProps) {
               status === "next" && "w-[min(22rem,85vw)]",
             )}
           >
-            <div className="relative flex h-12 w-full items-center justify-center">
+            <div className="relative flex h-12 w-full items-center justify-center overflow-hidden">
               <span
                 aria-hidden
                 className="absolute inset-x-0 top-1/2 h-px bg-border"
               />
+              {status === "next" ? (
+                <span
+                  aria-hidden
+                  className="animate-event-glow pointer-events-none absolute left-1/2 top-1/2 z-10 h-7 w-7 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent blur-sm"
+                />
+              ) : null}
               <span
                 aria-hidden
                 className={cn(
-                  "relative z-10 rounded-full border",
+                  "relative z-20 rounded-full border",
                   status === "next" && "h-5 w-5 border-accent bg-accent",
                   status === "past" &&
                     "h-[11px] w-[11px] border-border bg-muted/40",
                   status === "future" &&
                     "h-[11px] w-[11px] border-accent/50 bg-background",
                 )}
-              >
-                {status === "next" ? (
-                  <span className="animate-event-glow absolute left-1/2 top-1/2 h-8 w-8 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent blur-md" />
-                ) : null}
-              </span>
+              />
             </div>
 
             <article
               className={cn(
-                "relative isolate w-full rounded-2xl border p-5",
+                "relative w-full rounded-2xl border p-5",
                 status === "next" && "border-accent/50 bg-background-soft",
                 status === "past" &&
                   "border-border bg-background-soft/40 text-muted",
                 status === "future" && "border-border bg-background-soft/60",
               )}
             >
-              {status === "next" ? (
-                <span
-                  aria-hidden
-                  className="animate-event-glow pointer-events-none absolute -inset-3 -z-10 rounded-3xl bg-accent/45 blur-2xl"
-                />
-              ) : null}
               <p className="font-mono text-xs text-muted">
                 {formatDate(entry.date)}
                 {entry.kind === "upcoming" &&

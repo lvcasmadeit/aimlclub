@@ -76,6 +76,18 @@
     outline: 2px solid var(--accent);
     outline-offset: 3px;
   }
+
+  .brand-logo-light {
+    display: none;
+  }
+
+  .light .brand-logo-light {
+    display: block;
+  }
+
+  .light .brand-logo-dark {
+    display: none;
+  }
 }
 
 /* Hero-only scan grid: thin HUD lines that fade toward the edges. */
@@ -128,7 +140,7 @@
   animation: float-blob 18s ease-in-out infinite;
 }
 
-/* Focused meeting node/card: pulse the glow layer's opacity. */
+/* Focused meeting node: pulse the glow layer's opacity. */
 @keyframes event-glow {
   0%,
   100% {

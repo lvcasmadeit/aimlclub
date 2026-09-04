@@ -1,7 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { AnimatePresence, motion, useScroll, useSpring } from "motion/react";
+import blackLogo from "@/assets/blacktransparent.png";
+import whiteLogo from "@/assets/whitetransparent.png";
 import site from "@/lib/data/site.json";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
@@ -32,9 +35,25 @@ export function Header() {
       <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
         <a
           href="#hero"
-          className="font-mono text-sm font-medium tracking-tight"
+          className="flex shrink-0 items-center"
+          aria-label={site.name}
         >
-          <span className="text-accent">{"//"}</span> {site.name}
+          <Image
+            src={whiteLogo}
+            alt=""
+            width={whiteLogo.width}
+            height={whiteLogo.height}
+            className="brand-logo-dark h-8 w-auto"
+            priority
+          />
+          <Image
+            src={blackLogo}
+            alt=""
+            width={blackLogo.width}
+            height={blackLogo.height}
+            className="brand-logo-light h-8 w-auto"
+            priority
+          />
         </a>
 
         <div className="hidden items-center gap-8 md:flex">

@@ -1,13 +1,6 @@
 {
   "upcoming": [
     {
-      "id": "fall-engagement-fair",
-      "title": "UMass Lowell Fall Engagement Fair",
-      "date": "2026-08-31T12:00:00",
-      "location": "TBD",
-      "description": "Our first event of the semester. Stop by, meet the e-board, and get involved with the AI & ML Club."
-    },
-    {
       "id": "kickoff-meeting",
       "title": "AI & ML Club kickoff meeting",
       "date": "TBD",
@@ -17,10 +10,10 @@
   ],
   "past": [
     {
-      "id": "past-tbd",
-      "title": "TBD",
-      "date": "TBD",
-      "summary": "TBD"
+      "id": "fall-engagement-fair",
+      "title": "UMass Lowell Fall Engagement Fair",
+      "date": "2026-08-31T12:00:00",
+      "summary": "Our first event of the semester. We met students at the fair, introduced the e-board, and invited people to get involved."
     }
   ]
 }

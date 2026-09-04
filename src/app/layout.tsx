@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, IBM_Plex_Mono } from "next/font/google";
+import favicon from "@/assets/white on black logo.png";
 import site from "@/lib/data/site.json";
 import "./globals.css";
 
@@ -19,6 +20,10 @@ const plexMono = IBM_Plex_Mono({
 export const metadata: Metadata = {
   title: `${site.name} · ${site.university}`,
   description: site.tagline,
+  icons: {
+    icon: favicon.src,
+    apple: favicon.src,
+  },
   openGraph: {
     title: `${site.name} · ${site.university}`,
     description: site.tagline,
