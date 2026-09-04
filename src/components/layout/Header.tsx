@@ -43,7 +43,8 @@ export function Header() {
             alt=""
             width={whiteLogo.width}
             height={whiteLogo.height}
-            className="brand-logo-dark h-8 w-auto"
+            className="h-8 w-auto light:hidden"
+            aria-hidden
             priority
           />
           <Image
@@ -51,7 +52,8 @@ export function Header() {
             alt=""
             width={blackLogo.width}
             height={blackLogo.height}
-            className="brand-logo-light h-8 w-auto"
+            className="hidden h-8 w-auto light:block"
+            aria-hidden
             priority
           />
         </a>

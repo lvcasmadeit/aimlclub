@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Theme is `html.light`; dark is the default (no class). */
+@custom-variant light (.light &);
+
 :root {
   --background: #08080c;
   --background-soft: #111118;
@@ -77,17 +80,6 @@
     outline-offset: 3px;
   }
 
-  .brand-logo-light {
-    display: none;
-  }
-
-  .light .brand-logo-light {
-    display: block;
-  }
-
-  .light .brand-logo-dark {
-    display: none;
-  }
 }
 
 /* Hero-only scan grid: thin HUD lines that fade toward the edges. */
