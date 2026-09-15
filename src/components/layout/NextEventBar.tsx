@@ -1,6 +1,6 @@
 import meetings from "@/lib/data/meetings.json";
 import { getNextEvent } from "@/lib/meetings";
-import { formatDate } from "@/lib/utils";
+import { formatMeetingWhen } from "@/lib/utils";
 import type { MeetingsData } from "@/lib/types";
 
 export function NextEventBar() {
@@ -16,7 +16,7 @@ export function NextEventBar() {
       <span className="shrink-0 text-muted uppercase">Next up</span>
       <span className="truncate text-foreground">{next.title}</span>
       <span className="hidden shrink-0 text-muted sm:inline">
-        · {formatDate(next.date)}
+        · {formatMeetingWhen(next.date, next.endDate)}
       </span>
     </a>
   );

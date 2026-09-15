@@ -2,8 +2,9 @@
   "upcoming": [
     {
       "id": "kickoff-meeting",
-      "title": "AI & ML Club kickoff meeting",
-      "date": "TBD",
+      "title": "AI & ML Club kickoff social",
+      "date": "2026-09-24T18:30:00-04:00",
+      "endDate": "2026-09-24T19:30:00-04:00",
       "location": "TBD",
       "description": "Semester kickoff. Meet the e-board, hear the plan, and pick a project pod."
     }

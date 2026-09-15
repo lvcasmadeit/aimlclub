@@ -25,6 +25,8 @@ export interface UpcomingMeeting {
   id: string;
   title: string;
   date: string;
+  /** Optional end time; when set, event cards show a start–end range. */
+  endDate?: string;
   location: string;
   description: string;
   rsvpUrl?: string;

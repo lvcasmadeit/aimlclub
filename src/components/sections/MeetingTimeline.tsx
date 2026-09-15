@@ -3,7 +3,7 @@
 import { useLayoutEffect, useRef } from "react";
 import { useReducedMotion } from "motion/react";
 import type { TimelineEntry } from "@/lib/types";
-import { cn, formatDate, formatLocation } from "@/lib/utils";
+import { cn, formatLocation, formatMeetingWhen } from "@/lib/utils";
 
 interface MeetingTimelineProps {
   entries: TimelineEntry[];
@@ -141,7 +141,9 @@ export function MeetingTimeline({ entries, focusId }: MeetingTimelineProps) {
                   {statusCopy(status)}
                 </p>
                 <p className="mt-2 font-mono text-xs text-muted">
-                  {formatDate(entry.date)}
+                  {entry.kind === "upcoming"
+                    ? formatMeetingWhen(entry.date, entry.endDate)
+                    : formatMeetingWhen(entry.date)}
                   {entry.kind === "upcoming"
                     ? ` · ${formatLocation(entry.location)}`
                     : null}
