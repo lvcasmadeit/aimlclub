@@ -10,7 +10,7 @@ export function Meetings() {
 
   return (
     <section id="meetings" className="border-y border-border">
-      <div className="mx-auto max-w-6xl px-6 pt-28">
+      <div className="mx-auto max-w-6xl px-6 pt-20 sm:pt-28">
         <Reveal>
           <SectionLabel index="02">Meetings</SectionLabel>
         </Reveal>
@@ -20,7 +20,7 @@ export function Meetings() {
           </h2>
         </Reveal>
       </div>
-      <div className="pb-28">
+      <div className="pb-20 sm:pb-28">
         <MeetingTimeline entries={entries} focusId={focusId} />
       </div>
     </section>

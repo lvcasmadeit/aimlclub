@@ -13,14 +13,18 @@ const socials = [
   { label: "Instagram", href: site.instagram },
   { label: "GitHub", href: site.github },
   { label: "LinkedIn", href: site.linkedin },
-  { label: "CampusGroups", href: site.campusGroups },
+  { label: "Campus Groups", href: site.campusGroups },
+  { label: "Email", href: `mailto:${site.email}` },
 ];
 
 export function Footer() {
   return (
     <footer className="relative border-t border-border">
-      <div className="overflow-hidden border-b border-border py-4">
-        <div className="flex w-max animate-marquee gap-8 font-mono text-sm uppercase tracking-[0.2em] text-muted">
+      <div
+        aria-hidden
+        className="group overflow-hidden border-b border-border py-4"
+      >
+        <div className="flex w-max animate-marquee gap-8 font-mono text-sm uppercase tracking-[0.2em] text-muted group-hover:[animation-play-state:paused]">
           {[...marqueeWords, ...marqueeWords].map((word, i) => (
             <span key={i} className="flex items-center gap-8">
               {word}
@@ -40,19 +44,23 @@ export function Footer() {
           </p>
         </div>
 
-        <div className="flex flex-wrap gap-x-6 gap-y-2">
+        <nav aria-label="Social links" className="flex flex-wrap gap-x-6 gap-y-2">
           {socials.map((social) => (
             <a
               key={social.label}
               href={social.href}
-              target="_blank"
-              rel="noopener noreferrer"
+              target={social.href.startsWith("mailto:") ? undefined : "_blank"}
+              rel={
+                social.href.startsWith("mailto:")
+                  ? undefined
+                  : "noopener noreferrer"
+              }
               className="text-sm text-muted transition-colors hover:text-foreground"
             >
               {social.label}
             </a>
           ))}
-        </div>
+        </nav>
       </div>
     </footer>
   );

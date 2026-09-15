@@ -60,29 +60,35 @@ export function Hero() {
 
         <motion.h1
           variants={item}
-          className="mt-6 text-5xl font-semibold leading-[1.05] tracking-tight sm:text-7xl"
+          className="mx-auto mt-6 max-w-4xl text-4xl font-semibold leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl"
         >
           {site.name}
-          <span className="mt-4 block font-pixel text-2xl font-medium leading-snug tracking-normal text-muted sm:text-4xl">
+          <span className="mt-5 block font-pixel text-2xl font-medium leading-snug tracking-normal text-foreground sm:mt-6 sm:text-4xl">
             {site.tagline}
           </span>
         </motion.h1>
 
         <motion.p
           variants={item}
-          className="mx-auto mt-8 max-w-xl text-lg leading-relaxed text-muted"
+          className="mx-auto mt-8 max-w-xl text-base leading-relaxed text-muted sm:text-lg"
         >
           {site.mission}
         </motion.p>
 
-        <motion.div variants={item} className="mt-10 flex justify-center">
+        <motion.div
+          variants={item}
+          className="mt-10 flex flex-wrap items-center justify-center gap-3 sm:gap-4"
+        >
           <ButtonLink
             href={site.joinUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="shadow-[0_0_32px_rgba(194,65,12,0.45)]"
+            className="shadow-[0_0_32px_color-mix(in_srgb,var(--accent)_40%,transparent)]"
           >
-            Join the club
+            Join Discord
+          </ButtonLink>
+          <ButtonLink href="#meetings" variant="ghost">
+            See what&apos;s next
           </ButtonLink>
         </motion.div>
       </motion.div>

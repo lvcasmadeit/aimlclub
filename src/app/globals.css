@@ -12,7 +12,7 @@
   --accent: #c2410c;
   --accent-soft: rgba(194, 65, 12, 0.12);
   --violet: #e07a5f;
-  --hover: #9a3412;
+  --hover: rgba(255, 255, 255, 0.05);
   --tag: rgba(255, 255, 255, 0.04);
   --scan-line: rgba(245, 158, 11, 0.1);
 }

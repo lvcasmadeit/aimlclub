@@ -5,8 +5,12 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+export function isTbd(value: string) {
+  return value.trim().toUpperCase() === "TBD";
+}
+
 export function formatDate(iso: string) {
-  if (!iso || iso.toUpperCase() === "TBD") return "TBD";
+  if (!iso || isTbd(iso)) return "Date TBA";
 
   const parsed = new Date(iso);
   if (Number.isNaN(parsed.getTime())) return iso;
@@ -20,4 +24,9 @@ export function formatDate(iso: string) {
     year: "numeric",
     timeZone: "America/New_York",
   });
+}
+
+export function formatLocation(location: string) {
+  if (!location || isTbd(location)) return "Location TBA";
+  return location;
 }

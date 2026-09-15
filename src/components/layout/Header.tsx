@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
 import blackLogo from "@/assets/blacktransparent.png";
@@ -25,6 +25,7 @@ function overlayOffset() {
 export function Header() {
   const [open, setOpen] = useState(false);
   const [activeHref, setActiveHref] = useState<string | null>(null);
+  const menuId = useId();
 
   useEffect(() => {
     function updateActive() {
@@ -49,17 +50,34 @@ export function Header() {
     };
   }, []);
 
+  useEffect(() => {
+    if (!open) return;
+
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") setOpen(false);
+    }
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [open]);
+
   function linkClass(href: string) {
     const selected = activeHref === href;
     return cn(
-      "text-sm text-white light:text-black underline-offset-4 decoration-2",
-      "hover:underline focus-visible:underline",
-      selected && "underline",
+      "text-sm underline-offset-4 decoration-2 decoration-accent transition-colors",
+      "hover:text-foreground hover:underline focus-visible:underline",
+      selected ? "text-foreground underline" : "text-muted",
     );
   }
 
   return (
-    <header className="fixed inset-x-0 top-0 z-40 bg-background/70 backdrop-blur-md">
+    <header className="fixed inset-x-0 top-0 z-40 border-b border-border bg-background/80 backdrop-blur-md">
       <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
         <div className="flex min-w-0 items-center gap-8">
           <a
@@ -109,7 +127,7 @@ export function Header() {
             rel="noopener noreferrer"
             className="rounded-lg bg-accent px-4 py-2 text-sm font-medium text-background transition-all hover:-translate-y-0.5 hover:shadow-[0_0_24px_var(--color-accent-soft)]"
           >
-            Join
+            Join Discord
           </a>
         </div>
 
@@ -117,8 +135,9 @@ export function Header() {
           <ThemeToggle />
           <button
             type="button"
-            aria-label="Toggle navigation menu"
+            aria-label={open ? "Close navigation menu" : "Open navigation menu"}
             aria-expanded={open}
+            aria-controls={menuId}
             onClick={() => setOpen((v) => !v)}
             className="flex h-9 w-9 items-center justify-center rounded-lg border border-border"
           >
@@ -149,11 +168,12 @@ export function Header() {
       <AnimatePresence>
         {open && (
           <motion.div
+            id={menuId}
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25 }}
-            className="overflow-hidden bg-background/90 md:hidden"
+            className="overflow-hidden border-t border-border bg-background/95 md:hidden"
           >
             <div className="flex flex-col gap-1 px-6 py-4">
               {navLinks.map((link) => (
@@ -174,7 +194,7 @@ export function Header() {
                 onClick={() => setOpen(false)}
                 className="mt-2 rounded-lg bg-accent px-4 py-2 text-center text-sm font-medium text-background"
               >
-                Join the club
+                Join Discord
               </a>
             </div>
           </motion.div>

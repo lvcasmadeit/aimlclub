@@ -4,7 +4,7 @@ import { useState, type FormEvent } from "react";
 import site from "@/lib/data/site.json";
 
 const fieldClass =
-  "w-full rounded-xl border border-border bg-background-soft/60 px-4 py-3 text-sm text-foreground placeholder:text-muted transition-colors focus:border-accent focus:outline-none";
+  "w-full rounded-xl border border-border bg-background-soft/60 px-4 py-3 text-sm text-foreground placeholder:text-muted transition-colors focus:border-accent";
 
 export function ContactForm() {
   const [name, setName] = useState("");
@@ -30,6 +30,7 @@ export function ContactForm() {
           <input
             type="text"
             required
+            autoComplete="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Ada Lovelace"
@@ -43,6 +44,7 @@ export function ContactForm() {
           <input
             type="email"
             required
+            autoComplete="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@uml.edu"
@@ -63,12 +65,17 @@ export function ContactForm() {
           className={`${fieldClass} resize-none`}
         />
       </label>
-      <button
-        type="submit"
-        className="inline-flex items-center justify-center rounded-lg bg-accent px-6 py-3 text-sm font-medium text-background transition-all hover:-translate-y-0.5 hover:shadow-[0_0_24px_var(--color-accent-soft)]"
-      >
-        Send message
-      </button>
+      <div>
+        <button
+          type="submit"
+          className="inline-flex items-center justify-center rounded-lg bg-accent px-6 py-3 text-sm font-medium text-background transition-all hover:-translate-y-0.5 hover:shadow-[0_0_24px_var(--color-accent-soft)]"
+        >
+          Send message
+        </button>
+        <p className="mt-3 text-xs leading-relaxed text-muted">
+          Opens your email app to {site.email}. Nothing is stored on this site.
+        </p>
+      </div>
     </form>
   );
 }

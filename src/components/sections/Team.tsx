@@ -53,7 +53,7 @@ export function Team() {
   const members = team as TeamMember[];
 
   return (
-    <section id="team" className="mx-auto max-w-6xl px-6 py-28">
+    <section id="team" className="mx-auto max-w-6xl px-6 py-20 sm:py-28">
       <Reveal>
         <SectionLabel index="04">Team</SectionLabel>
       </Reveal>

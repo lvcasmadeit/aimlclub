@@ -26,20 +26,21 @@ const operatingPrinciples = [
 
 export function About() {
   return (
-    <section id="about" className="mx-auto max-w-6xl px-6 py-28">
+    <section id="about" className="mx-auto max-w-6xl px-6 py-20 sm:py-28">
       <Reveal>
         <SectionLabel index="01">About</SectionLabel>
       </Reveal>
 
-      <div className="mt-10 grid gap-12 lg:grid-cols-2">
+      <div className="mt-8 grid gap-12 lg:mt-10 lg:grid-cols-2">
         <Reveal>
           <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
             We run like a startup, not a study group.
           </h2>
-          <p className="mt-4 leading-relaxed text-muted">
-          Our community brings together computer science students and students from across
-           the university who are curious about AI and machine learning.
-            Whether you’re experienced or just getting started, there’s a place for you here.
+          <p className="mt-5 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
+            Our community brings together computer science students and students
+            from across the university who are curious about AI and machine
+            learning. Whether you&apos;re experienced or just getting started,
+            there&apos;s a place for you here.
           </p>
         </Reveal>
 
@@ -57,13 +58,22 @@ export function About() {
         </Reveal>
       </div>
 
-      <div className="mt-20 grid gap-12 lg:grid-cols-[1fr_1.4fr]">
+      <div className="mt-16 grid gap-8 sm:mt-20 lg:grid-cols-[1fr_1.4fr] lg:gap-12">
         <Reveal>
           <h3 className="text-2xl font-semibold tracking-tight">
             Frequently asked
           </h3>
-          <p className="mt-3 text-sm leading-relaxed text-muted">
-            New here? Start with these, then come say hi on Discord.
+          <p className="mt-3 max-w-sm text-sm leading-relaxed text-muted">
+            New here? Start with these, then come say hi on{" "}
+            <a
+              href={site.joinUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-foreground underline decoration-accent/70 underline-offset-4 transition-colors hover:text-accent"
+            >
+              Discord
+            </a>
+            .
           </p>
         </Reveal>
         <Reveal delay={0.1}>
