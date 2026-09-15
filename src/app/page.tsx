@@ -18,18 +18,16 @@ export default function Home() {
         Skip to content
       </a>
       <Header />
-      <div className="pt-16">
-        <NextEventBar />
-        <main>
-          <Hero />
-          <About />
-          <Meetings />
-          <Projects />
-          <Team />
-          <Contact />
-        </main>
-        <Footer />
-      </div>
+      <NextEventBar />
+      <main>
+        <Hero />
+        <About />
+        <Meetings />
+        <Projects />
+        <Team />
+        <Contact />
+      </main>
+      <Footer />
     </>
   );
 }

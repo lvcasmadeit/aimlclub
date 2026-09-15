@@ -24,7 +24,7 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex min-h-[calc(100svh-4rem)] items-center overflow-hidden"
+      className="relative flex min-h-svh items-center overflow-hidden"
     >
       <div aria-hidden className="hero-scan" />
       <div
@@ -46,7 +46,7 @@ export function Hero() {
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-background" />
 
       <motion.div
-        className="relative mx-auto w-full max-w-6xl px-6 pt-12"
+        className="relative mx-auto w-full max-w-6xl px-6 pt-28 pb-12 text-center"
         variants={container}
         initial={reduceMotion ? false : "hidden"}
         animate="visible"
@@ -60,45 +60,31 @@ export function Hero() {
 
         <motion.h1
           variants={item}
-          className="mt-6 max-w-4xl text-5xl font-semibold leading-[1.05] tracking-tight sm:text-7xl"
+          className="mt-6 text-5xl font-semibold leading-[1.05] tracking-tight sm:text-7xl"
         >
           {site.name}
-          <span className="block text-muted">{site.tagline}</span>
+          <span className="mt-4 block font-pixel text-2xl font-medium leading-snug tracking-normal text-muted sm:text-4xl">
+            {site.tagline}
+          </span>
         </motion.h1>
 
         <motion.p
           variants={item}
-          className="mt-8 max-w-xl text-lg leading-relaxed text-muted"
+          className="mx-auto mt-8 max-w-xl text-lg leading-relaxed text-muted"
         >
           {site.mission}
         </motion.p>
 
-        <motion.div variants={item} className="mt-10 flex flex-wrap gap-4">
+        <motion.div variants={item} className="mt-10 flex justify-center">
           <ButtonLink
             href={site.joinUrl}
             target="_blank"
             rel="noopener noreferrer"
+            className="shadow-[0_0_32px_rgba(194,65,12,0.45)]"
           >
             Join the club
           </ButtonLink>
-          <ButtonLink href="#projects" variant="ghost">
-            See our work
-          </ButtonLink>
         </motion.div>
-
-        <motion.dl
-          variants={item}
-          className="mt-16 flex flex-wrap gap-x-12 gap-y-6 border-t border-border pt-8"
-        >
-          {site.stats.map((stat) => (
-            <div key={stat.label}>
-              <dt className="font-mono text-xs uppercase tracking-[0.2em] text-muted">
-                {stat.label}
-              </dt>
-              <dd className="mt-1 text-3xl font-semibold">{stat.value}</dd>
-            </div>
-          ))}
-        </motion.dl>
       </motion.div>
     </section>
   );

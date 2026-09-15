@@ -44,6 +44,7 @@
   --color-tag: var(--tag);
   --font-sans: var(--font-space-grotesk);
   --font-mono: var(--font-plex-mono);
+  --font-pixel: var(--font-geist-pixel-circle);
 }
 
 @layer base {
@@ -65,9 +66,9 @@
       color 0.3s ease;
   }
 
-  /* Anchored sections sit below the sticky header. */
+  /* Anchored sections sit below the overlay header + next-event bar. */
   section[id] {
-    scroll-margin-top: 5rem;
+    scroll-margin-top: 6.5rem;
   }
 
   ::selection {
