@@ -34,9 +34,15 @@ export function Header() {
       for (const link of navLinks) {
         const section = document.getElementById(link.href.slice(1));
         if (!section) continue;
-        if (section.getBoundingClientRect().top <= offset + 16) {
+        if (section.getBoundingClientRect().top <= offset + 80) {
           current = link.href;
         }
+      }
+      const atBottom =
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 48;
+      if (atBottom) {
+        current = navLinks[navLinks.length - 1]?.href ?? current;
       }
       setActiveHref((prev) => (prev === current ? prev : current));
     }
