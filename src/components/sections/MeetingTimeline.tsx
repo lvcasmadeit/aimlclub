@@ -58,11 +58,6 @@ export function MeetingTimeline({ entries, focusId }: MeetingTimelineProps) {
 
   return (
     <div className="relative mt-10 md:mt-12">
-      <p className="mx-auto max-w-6xl px-6 text-sm text-muted">
-        Next meeting is highlighted. On larger screens, the timeline scrolls
-        sideways.
-      </p>
-
       <div className="pointer-events-none absolute inset-y-0 left-0 z-10 hidden w-16 bg-gradient-to-r from-background to-transparent md:block" />
       <div className="pointer-events-none absolute inset-y-0 right-0 z-10 hidden w-16 bg-gradient-to-l from-background to-transparent md:block" />
 
@@ -84,7 +79,7 @@ export function MeetingTimeline({ entries, focusId }: MeetingTimelineProps) {
             scroller.scrollBy({ left: -220, behavior });
           }
         }}
-        className="mt-6 flex flex-col gap-4 px-6 md:mt-8 md:flex-row md:gap-0 md:overflow-x-auto md:overscroll-x-contain md:px-[max(1.5rem,calc(50%-11rem))] md:pb-8 md:pt-6 md:snap-x md:snap-mandatory [scrollbar-width:thin] md:[scrollbar-width:none] md:[-ms-overflow-style:none] md:[&::-webkit-scrollbar]:hidden focus-visible:outline-offset-[-2px]"
+        className="flex flex-col gap-4 px-6 md:flex-row md:gap-0 md:overflow-x-auto md:overscroll-x-contain md:px-[max(1.5rem,calc(50%-11rem))] md:pb-8 md:pt-6 md:snap-x md:snap-mandatory [scrollbar-width:thin] md:[scrollbar-width:none] md:[-ms-overflow-style:none] md:[&::-webkit-scrollbar]:hidden focus-visible:outline-offset-[-2px]"
       >
         {entries.map((entry) => {
           const focused = entry.id === focusId;
