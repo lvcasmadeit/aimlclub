@@ -60,7 +60,7 @@ export function Header() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-40 bg-background/70 backdrop-blur-md">
-      <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
+      <nav className="mx-auto flex h-16 max-w-6xl items-center justify-center gap-4 px-6 md:gap-12">
         <div className="flex min-w-0 items-center gap-8">
           <a
             href="#hero"
@@ -155,13 +155,13 @@ export function Header() {
             transition={{ duration: 0.25 }}
             className="overflow-hidden bg-background/90 md:hidden"
           >
-            <div className="flex flex-col gap-1 px-6 py-4">
+            <div className="flex flex-col items-center gap-1 px-6 py-4">
               {navLinks.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className={cn("px-2 py-2", linkClass(link.href))}
+                  className={cn("px-2 py-2 text-center", linkClass(link.href))}
                   aria-current={activeHref === link.href ? "true" : undefined}
                 >
                   {link.label}
