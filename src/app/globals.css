@@ -14,7 +14,6 @@
   --violet: #e07a5f;
   --hover: #9a3412;
   --tag: rgba(255, 255, 255, 0.04);
-  --scan-line: rgba(245, 158, 11, 0.1);
 }
 
 .light {
@@ -28,7 +27,6 @@
   --violet: #9a3412;
   --hover: rgba(0, 0, 0, 0.04);
   --tag: rgba(0, 0, 0, 0.05);
-  --scan-line: rgba(194, 65, 12, 0.09);
 }
 
 @theme inline {
@@ -83,25 +81,67 @@
 
 }
 
-/* Hero-only scan grid: thin HUD lines that fade toward the edges. */
-.hero-scan {
+.timeline-scrollbar-hidden {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.timeline-scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+/* Static hero dots with a pointer-local glow layer. */
+.hero-dot-grid,
+.hero-dot-glow {
   pointer-events: none;
   position: absolute;
   inset: 0;
-  background-image:
-    linear-gradient(var(--scan-line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--scan-line) 1px, transparent 1px);
-  background-size: 64px 64px;
+  background-position: center;
+  background-size: 28px 28px;
+}
+
+.hero-dot-grid {
+  background-image: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--foreground) 18%, transparent) 1px,
+    transparent 1.5px
+  );
   mask-image: radial-gradient(
-    ellipse 80% 70% at 50% 38%,
-    #000 18%,
-    transparent 72%
+    ellipse 80% 75% at 50% 42%,
+    #000 15%,
+    transparent 100%
   );
   -webkit-mask-image: radial-gradient(
-    ellipse 80% 70% at 50% 38%,
-    #000 18%,
-    transparent 72%
+    ellipse 80% 75% at 50% 42%,
+    #000 15%,
+    transparent 100%
   );
+}
+
+.hero-dot-glow {
+  --hero-dot-highlight: color-mix(in srgb, var(--accent) 70%, var(--foreground));
+  background-image: radial-gradient(
+    circle,
+    var(--hero-dot-highlight) 2px,
+    transparent 2.8px
+  );
+  filter: drop-shadow(0 0 5px var(--hero-dot-highlight));
+  opacity: 0;
+  transition: opacity 160ms ease-out;
+  mask-image: radial-gradient(
+    circle 144px at var(--pointer-x, -1000px) var(--pointer-y, -1000px),
+    #000 0%,
+    transparent 100%
+  );
+  -webkit-mask-image: radial-gradient(
+    circle 144px at var(--pointer-x, -1000px) var(--pointer-y, -1000px),
+    #000 0%,
+    transparent 100%
+  );
+}
+
+#hero[data-pointer-active="true"] .hero-dot-glow {
+  opacity: 1;
 }
 
 /* CSS-only keyword marquee for the hero/footer strips. */
@@ -118,20 +158,6 @@
   animation: marquee 32s linear infinite;
 }
 
-/* Slow drifting gradient blob behind the hero. */
-@keyframes float-blob {
-  0%,
-  100% {
-    transform: translate(0, 0) scale(1);
-  }
-  50% {
-    transform: translate(4%, -6%) scale(1.08);
-  }
-}
-
-.animate-float-blob {
-  animation: float-blob 18s ease-in-out infinite;
-}
 
 /* Focused meeting node: pulse the glow layer's opacity. */
 @keyframes event-glow {
@@ -154,8 +180,11 @@
   }
 
   .animate-marquee,
-  .animate-float-blob,
   .animate-event-glow {
     animation: none;
+  }
+
+  .hero-dot-glow {
+    transition: none;
   }
 }
