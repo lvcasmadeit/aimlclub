@@ -24,25 +24,28 @@ export function Hero() {
   return (
     <section
       id="hero"
+      onPointerMove={(event) => {
+        if (event.pointerType === "touch") return;
+
+        const section = event.currentTarget;
+        const bounds = section.getBoundingClientRect();
+        section.style.setProperty(
+          "--pointer-x",
+          `${event.clientX - bounds.left}px`,
+        );
+        section.style.setProperty(
+          "--pointer-y",
+          `${event.clientY - bounds.top}px`,
+        );
+        section.dataset.pointerActive = "true";
+      }}
+      onPointerLeave={(event) => {
+        delete event.currentTarget.dataset.pointerActive;
+      }}
       className="relative flex min-h-svh items-center overflow-hidden"
     >
-      <div aria-hidden className="hero-scan" />
-      <div
-        aria-hidden
-        className="animate-float-blob pointer-events-none absolute -top-1/5 left-1/2 h-[70vh] w-[70vh] -translate-x-1/2 rounded-full bg-accent/25 blur-[140px]"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -bottom-1/6 -left-16 h-[42vh] w-[42vh] rounded-full bg-accent/12 blur-[120px]"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute right-0 bottom-0 h-[48vh] w-[48vh] rounded-full bg-violet/20 blur-[130px]"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_35%,var(--background)_100%)]"
-      />
+      <div aria-hidden className="hero-dot-grid" />
+      <div aria-hidden className="hero-dot-glow" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-background" />
 
       <motion.div
@@ -60,10 +63,10 @@ export function Hero() {
 
         <motion.h1
           variants={item}
-          className="mx-auto mt-6 max-w-4xl text-4xl font-semibold leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl"
+          className="mx-auto mt-6 max-w-4xl text-[clamp(3rem,15vw,6rem)] font-semibold leading-[1.05] tracking-tight"
         >
           {site.name}
-          <span className="mt-5 block font-pixel text-2xl font-medium leading-snug tracking-normal text-foreground sm:mt-6 sm:text-4xl">
+          <span className="mt-5 block font-pixel text-[clamp(1.875rem,7.5vw,3rem)] font-medium leading-snug tracking-normal text-foreground sm:mt-6">
             {site.tagline}
           </span>
         </motion.h1>

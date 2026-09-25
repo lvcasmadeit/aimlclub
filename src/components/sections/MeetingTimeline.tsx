@@ -79,7 +79,7 @@ export function MeetingTimeline({ entries, focusId }: MeetingTimelineProps) {
             scroller.scrollBy({ left: -220, behavior });
           }
         }}
-        className="flex flex-col gap-4 px-6 md:flex-row md:gap-0 md:overflow-x-auto md:overscroll-x-contain md:px-[max(1.5rem,calc(50%-11rem))] md:pb-8 md:pt-6 md:snap-x md:snap-mandatory [scrollbar-width:thin] md:[scrollbar-width:none] md:[-ms-overflow-style:none] md:[&::-webkit-scrollbar]:hidden focus-visible:outline-offset-[-2px]"
+        className="flex flex-col gap-4 px-6 md:flex-row md:gap-0 md:overflow-x-auto md:overscroll-x-contain md:px-[max(1.5rem,calc(50%-11rem))] md:pb-8 md:pt-6 md:snap-x md:snap-mandatory timeline-scrollbar focus-visible:outline-offset-[-2px]"
       >
         {entries.map((entry) => {
           const focused = entry.id === focusId;
