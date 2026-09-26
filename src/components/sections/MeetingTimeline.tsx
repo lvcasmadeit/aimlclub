@@ -4,7 +4,6 @@ import { useLayoutEffect, useRef } from "react";
 import { useReducedMotion } from "motion/react";
 import type { TimelineEntry } from "@/lib/types";
 import { cn, formatLocation, formatMeetingWhen } from "@/lib/utils";
-
 interface MeetingTimelineProps {
   entries: TimelineEntry[];
   focusId: string | undefined;
@@ -20,25 +19,34 @@ export function MeetingTimeline({ entries, focusId }: MeetingTimelineProps) {
   const scrollerRef = useRef<HTMLOListElement>(null);
   const focusRef = useRef<HTMLLIElement>(null);
   const reduceMotion = useReducedMotion();
+  const hasUpcomingFocus = entries.some(
+    (entry) => entry.kind === "upcoming" && entry.id === focusId,
+  );
 
   useLayoutEffect(() => {
     const scroller = scrollerRef.current;
-    const target = focusRef.current;
-    if (!scroller || !target) return;
+    if (!scroller) return;
     if (window.matchMedia("(max-width: 767px)").matches) return;
 
+    const first = scroller.firstElementChild;
+    const last = scroller.lastElementChild;
+    if (!first || !last) return;
+
     const scrollerBox = scroller.getBoundingClientRect();
-    const targetBox = target.getBoundingClientRect();
+    const targetBox = focusRef.current?.getBoundingClientRect();
+    const firstBox = first.getBoundingClientRect();
+    const lastBox = last.getBoundingClientRect();
+    const targetCenter = targetBox
+      ? targetBox.left + targetBox.width / 2
+      : (firstBox.left + lastBox.right) / 2;
     const delta =
-      targetBox.left +
-      targetBox.width / 2 -
-      (scrollerBox.left + scrollerBox.width / 2);
+      targetCenter - (scrollerBox.left + scrollerBox.width / 2);
 
     scroller.scrollTo({
       left: scroller.scrollLeft + delta,
       behavior: "auto",
     });
-  }, [focusId]);
+  }, [entries, focusId]);
 
   if (entries.length === 0) {
     return (
@@ -79,10 +87,15 @@ export function MeetingTimeline({ entries, focusId }: MeetingTimelineProps) {
             scroller.scrollBy({ left: -220, behavior });
           }
         }}
-        className="flex flex-col gap-4 px-6 md:flex-row md:gap-0 md:overflow-x-auto md:overscroll-x-contain md:px-[max(1.5rem,calc(50%-11rem))] md:pb-8 md:pt-6 md:snap-x md:snap-mandatory timeline-scrollbar focus-visible:outline-offset-[-2px]"
+        className={cn(
+          "flex flex-col gap-4 px-6 md:flex-row md:gap-0 md:overflow-x-auto md:overscroll-x-contain md:pb-8 md:pt-6 timeline-scrollbar focus-visible:outline-offset-[-2px]",
+          hasUpcomingFocus
+            ? "md:px-[max(1.5rem,calc(50%-11rem))] md:snap-x md:snap-mandatory"
+            : "md:px-[max(1.5rem,calc(50%-9rem))] md:snap-none",
+        )}
       >
         {entries.map((entry) => {
-          const focused = entry.id === focusId;
+          const focused = entry.kind === "upcoming" && entry.id === focusId;
           const status = focused
             ? "next"
             : entry.kind === "past"
@@ -122,7 +135,6 @@ export function MeetingTimeline({ entries, focusId }: MeetingTimelineProps) {
                   )}
                 />
               </div>
-
               <article
                 className={cn(
                   "relative w-full rounded-2xl border p-5",

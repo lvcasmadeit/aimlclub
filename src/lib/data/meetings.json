@@ -1,20 +1,17 @@
 {
-  "upcoming": [
-    {
-      "id": "kickoff-meeting",
-      "title": "AI & ML Club kickoff social",
-      "date": "2026-09-24T18:30:00-04:00",
-      "endDate": "2026-09-24T19:30:00-04:00",
-      "location": "TBD",
-      "description": "Semester kickoff. Meet the e-board, hear the plan, and pick a project pod."
-    }
-  ],
+  "upcoming": [],
   "past": [
     {
       "id": "fall-engagement-fair",
       "title": "UMass Lowell Fall Engagement Fair",
       "date": "2026-08-31T12:00:00",
       "summary": "Our first event of the semester. We met students at the fair, introduced the e-board, and invited people to get involved."
+    },
+    {
+      "id": "kickoff-meeting",
+      "title": "AI & ML Club kickoff social",
+      "date": "2026-09-24T18:30:00-04:00",
+      "summary": "The AI & ML Club held its semester kickoff social."
     }
   ]
 }

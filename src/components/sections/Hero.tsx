@@ -1,6 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import { motion, useReducedMotion, type Variants } from "motion/react";
+import cloudHeroDark from "@/assets/cloudherodark-dithered.png";
+import cloudHeroLight from "@/assets/cloudherolight-dithered.png";
 import { ButtonLink } from "@/components/ui/Button";
 import site from "@/lib/data/site.json";
 
@@ -22,34 +25,29 @@ export function Hero() {
   const reduceMotion = useReducedMotion();
 
   return (
-    <section
-      id="hero"
-      onPointerMove={(event) => {
-        if (event.pointerType === "touch") return;
-
-        const section = event.currentTarget;
-        const bounds = section.getBoundingClientRect();
-        section.style.setProperty(
-          "--pointer-x",
-          `${event.clientX - bounds.left}px`,
-        );
-        section.style.setProperty(
-          "--pointer-y",
-          `${event.clientY - bounds.top}px`,
-        );
-        section.dataset.pointerActive = "true";
-      }}
-      onPointerLeave={(event) => {
-        delete event.currentTarget.dataset.pointerActive;
-      }}
-      className="relative flex min-h-svh items-center overflow-hidden"
-    >
-      <div aria-hidden className="hero-dot-grid" />
-      <div aria-hidden className="hero-dot-glow" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-background" />
+    <section id="hero" className="relative flex min-h-svh items-center overflow-hidden">
+      <div aria-hidden className="pointer-events-none absolute inset-0 z-0">
+        <Image
+          src={cloudHeroDark}
+          alt=""
+          fill
+          sizes="100vw"
+          fetchPriority="high"
+          className="object-cover object-[60%_center] light:hidden"
+        />
+        <Image
+          src={cloudHeroLight}
+          alt=""
+          fill
+          sizes="100vw"
+          fetchPriority="high"
+          className="hidden object-cover object-[60%_center] light:block"
+        />
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-background" />
+      </div>
 
       <motion.div
-        className="relative mx-auto w-full max-w-6xl px-6 pt-28 pb-12 text-center"
+        className="relative z-10 mx-auto w-full max-w-6xl px-6 pt-28 pb-12 text-center"
         variants={container}
         initial={reduceMotion ? false : "hidden"}
         animate="visible"
@@ -63,17 +61,17 @@ export function Hero() {
 
         <motion.h1
           variants={item}
-          className="mx-auto mt-6 max-w-4xl text-[clamp(3rem,15vw,6rem)] font-semibold leading-[1.05] tracking-tight"
+          className="mx-auto mt-6 max-w-4xl font-sans text-[clamp(3rem,15vw,6rem)] font-normal leading-[1.05] tracking-tight"
         >
-          {site.name}
-          <span className="mt-5 block font-pixel text-[clamp(1.875rem,7.5vw,3rem)] font-medium leading-snug tracking-normal text-foreground sm:mt-6">
+          {site.heroTitle}
+          <span className="mt-5 block font-sans text-[clamp(1.875rem,7.5vw,3rem)] font-normal leading-snug tracking-normal text-foreground sm:mt-6">
             {site.tagline}
           </span>
         </motion.h1>
 
         <motion.p
           variants={item}
-          className="mx-auto mt-8 max-w-xl text-base leading-relaxed text-muted sm:text-lg"
+          className="mx-auto mt-8 max-w-xl text-base leading-relaxed text-foreground/90 sm:text-lg"
         >
           {site.mission}
         </motion.p>

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, IBM_Plex_Mono } from "next/font/google";
-import { GeistPixelCircle } from "geist/font/pixel";
 import favicon from "@/assets/white on black logo.png";
 import site from "@/lib/data/site.json";
 import "./globals.css";
@@ -41,7 +40,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${spaceGrotesk.variable} ${plexMono.variable} ${GeistPixelCircle.variable} h-full antialiased`}
+      className={`${spaceGrotesk.variable} ${plexMono.variable} h-full antialiased`}
     >
       <head>
         <script

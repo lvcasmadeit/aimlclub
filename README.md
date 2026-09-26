@@ -30,7 +30,7 @@ All copy is driven by static JSON in [`src/lib/data`](src/lib/data), so you can 
 the site without touching components. The shapes are defined in
 [`src/lib/types.ts`](src/lib/types.ts).
 
-- [`site.json`](src/lib/data/site.json) — club name, tagline, mission, social links, and the hero stat row.
+- [`site.json`](src/lib/data/site.json) — club name, hero title, tagline, mission, social links, and the hero stat row.
 - [`projects.json`](src/lib/data/projects.json) — project cards. `status` is one of `active`, `shipped`, or `exploring`. `githubUrl` and `demoUrl` are optional.
 - [`team.json`](src/lib/data/team.json) — e-board. `githubUrl` and `linkedinUrl` are optional. Avatars fall back to initials.
 - [`meetings.json`](src/lib/data/meetings.json) — `upcoming` and `past` arrays. Dates are ISO strings; `rsvpUrl` and `recapUrl` are optional.
@@ -55,7 +55,9 @@ src/
 
 - Dark-first palette with a single electric-cyan accent, defined as CSS variables in [`src/app/globals.css`](src/app/globals.css).
 - Fonts: Space Grotesk (display) and IBM Plex Mono (labels and stats).
-- Animation is intentionally restrained: scroll-reveal fades, a staggered hero, hover lifts on cards, and a CSS-only keyword marquee. Everything honors `prefers-reduced-motion`.
+- Animation is intentionally restrained: scroll-reveal fades, a staggered hero with a rotating glitch-text tagline, hover lifts on cards, and a CSS-only keyword marquee. Everything honors `prefers-reduced-motion`.
+- The meetings timeline scrolls horizontally on desktop, centering the next event or the history as a group when no upcoming events remain; the next-event node glows. It stacks vertically on mobile.
+- The hero uses separate light- and dark-mode cloud backgrounds, cover-cropped and faded into the page at the bottom; other sections are unchanged.
 
 ## Contact form
 
