@@ -1,3 +1,10 @@
+export type AboutTabId = "build" | "community" | "learn";
+
+export interface AboutTab {
+  id: AboutTabId;
+  label: string;
+}
+
 export interface Project {
   id: string;
   title: string;

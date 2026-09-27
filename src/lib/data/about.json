@@ -1,0 +1,7 @@
+{
+  "tabs": [
+    { "id": "build", "label": "Build" },
+    { "id": "community", "label": "Community" },
+    { "id": "learn", "label": "Learn" }
+  ]
+}

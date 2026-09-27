@@ -2,8 +2,10 @@ import { Reveal } from "@/components/ui/AnimatedSection";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { FaqAccordion } from "@/components/sections/FaqAccordion";
 import site from "@/lib/data/site.json";
+import { AboutTabs } from "@/components/sections/AboutTabs";
+import about from "@/lib/data/about.json";
 import faq from "@/lib/data/faq.json";
-import type { FaqItem } from "@/lib/types";
+import type { AboutTab, FaqItem } from "@/lib/types";
 
 const operatingPrinciples = [
   {
@@ -57,6 +59,8 @@ export function About() {
           </dl>
         </Reveal>
       </div>
+
+      <AboutTabs tabs={about.tabs as AboutTab[]} />
 
       <div className="mt-16 grid gap-8 sm:mt-20 lg:grid-cols-[1fr_1.4fr] lg:gap-12">
         <Reveal>
