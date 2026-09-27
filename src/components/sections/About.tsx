@@ -1,30 +1,11 @@
 import { Reveal } from "@/components/ui/AnimatedSection";
-import { SectionLabel } from "@/components/ui/SectionLabel";
-import { FaqAccordion } from "@/components/sections/FaqAccordion";
-import site from "@/lib/data/site.json";
 import { AboutTabs } from "@/components/sections/AboutTabs";
+import { FaqAccordion } from "@/components/sections/FaqAccordion";
+import { SectionLabel } from "@/components/ui/SectionLabel";
 import about from "@/lib/data/about.json";
+import site from "@/lib/data/site.json";
 import faq from "@/lib/data/faq.json";
 import type { AboutTab, FaqItem } from "@/lib/types";
-
-const operatingPrinciples = [
-  {
-    title: "Ship, then polish",
-    body: "We start building from week one. Real projects teach faster than any lecture.",
-  },
-  {
-    title: "Learn in public",
-    body: "Demos, write-ups, and open repos. We share the messy middle, not just the wins.",
-  },
-  {
-    title: "Pods, not hierarchy",
-    body: "Small teams own projects end to end, the way a startup ships features.",
-  },
-  {
-    title: "Everyone is welcome",
-    body: "Beginner or researcher, every major. Curiosity is the only prerequisite.",
-  },
-];
 
 export function About() {
   return (
@@ -32,33 +13,6 @@ export function About() {
       <Reveal>
         <SectionLabel index="01">About</SectionLabel>
       </Reveal>
-
-      <div className="mt-8 grid gap-12 lg:mt-10 lg:grid-cols-2">
-        <Reveal>
-          <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-            We run like a startup, not a study group.
-          </h2>
-          <p className="mt-5 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
-            Our community brings together computer science students and students
-            from across the university who are curious about AI and machine
-            learning. Whether you&apos;re experienced or just getting started,
-            there&apos;s a place for you here.
-          </p>
-        </Reveal>
-
-        <Reveal delay={0.1}>
-          <dl className="grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2">
-            {operatingPrinciples.map((principle) => (
-              <div key={principle.title} className="bg-background-soft/60 p-6">
-                <dt className="font-medium">{principle.title}</dt>
-                <dd className="mt-2 text-sm leading-relaxed text-muted">
-                  {principle.body}
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </Reveal>
-      </div>
 
       <AboutTabs tabs={about.tabs as AboutTab[]} />
 

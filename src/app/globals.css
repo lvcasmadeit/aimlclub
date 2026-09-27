@@ -4,27 +4,27 @@
 @custom-variant light (.light &);
 
 :root {
-  --background: #08080c;
-  --background-soft: #111118;
+  --background: #000000;
+  --background-soft: #171717;
   --foreground: #ededf2;
   --muted: #8a8a99;
   --border: rgba(255, 255, 255, 0.08);
-  --accent: #48cae4;
-  --accent-soft: #023e8a;
-  --violet: #caf0f8;
+  --accent: #f59e0b;
+  --accent-soft: rgba(245, 158, 11, 0.16);
+  --violet: #e07a5f;
   --hover: rgba(255, 255, 255, 0.05);
   --tag: rgba(255, 255, 255, 0.04);
 }
 
 .light {
-  --background: #f6f5f1;
-  --background-soft: #ffffff;
+  --background: #ffffff;
+  --background-soft: #e2e2e2;
   --foreground: #16161a;
   --muted: #5b5b66;
   --border: rgba(0, 0, 0, 0.1);
-  --accent: #023e8a;
-  --accent-soft: #48cae4;
-  --violet: #caf0f8;
+  --accent: #c2410c;
+  --accent-soft: rgba(194, 65, 12, 0.12);
+  --violet: #9a3412;
   --hover: rgba(0, 0, 0, 0.04);
   --tag: rgba(0, 0, 0, 0.05);
 }

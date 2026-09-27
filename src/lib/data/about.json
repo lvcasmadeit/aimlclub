@@ -1,7 +1,28 @@
 {
   "tabs": [
-    { "id": "build", "label": "Build" },
-    { "id": "community", "label": "Community" },
-    { "id": "learn", "label": "Learn" }
+    {
+      "id": "learn",
+      "label": "Learn",
+      "title": "Learn together.",
+      "description": "Placeholder copy for workshops, study sessions, and experiments that help us build a stronger AI and ML foundation.",
+      "cardLabel": "Learn visual placeholder",
+      "cardDetail": "Workshop layout TBD"
+    },
+    {
+      "id": "build",
+      "label": "Build",
+      "title": "Build something real.",
+      "description": "Placeholder copy for project pods, prototypes, and demos that turn ideas into work we can share.",
+      "cardLabel": "Build visual placeholder",
+      "cardDetail": "Project layout TBD"
+    },
+    {
+      "id": "community",
+      "label": "Community",
+      "title": "Find your people.",
+      "description": "Placeholder copy for meetups, feedback, and the conversations that make building together more fun.",
+      "cardLabel": "Community visual placeholder",
+      "cardDetail": "Community layout TBD"
+    }
   ]
 }

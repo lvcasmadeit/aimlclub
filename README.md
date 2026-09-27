@@ -31,6 +31,7 @@ the site without touching components. The shapes are defined in
 [`src/lib/types.ts`](src/lib/types.ts).
 
 - [`site.json`](src/lib/data/site.json) — club name, hero title, tagline, mission, social links, and the hero stat row.
+- [`about.json`](src/lib/data/about.json) — provisional Learn, Build, and Community tab copy and placeholder visual labels.
 - [`projects.json`](src/lib/data/projects.json) — project cards. `status` is one of `active`, `shipped`, or `exploring`. `githubUrl` and `demoUrl` are optional.
 - [`team.json`](src/lib/data/team.json) — e-board. `githubUrl` and `linkedinUrl` are optional. Avatars fall back to initials.
 - [`meetings.json`](src/lib/data/meetings.json) — `upcoming` and `past` arrays. Dates are ISO strings; `rsvpUrl` and `recapUrl` are optional.
