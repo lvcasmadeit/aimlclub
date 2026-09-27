@@ -16,7 +16,7 @@ export function About() {
 
       <AboutTabs tabs={about.tabs as AboutTab[]} />
 
-      <div className="mt-16 grid gap-8 sm:mt-20 lg:grid-cols-[1fr_1.4fr] lg:gap-12">
+      <div className="mt-24 grid gap-8 sm:mt-28 lg:grid-cols-[1fr_1.4fr] lg:gap-12">
         <Reveal>
           <h3 className="text-2xl font-semibold tracking-tight">
             Frequently asked

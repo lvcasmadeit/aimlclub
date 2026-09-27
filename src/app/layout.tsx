@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, IBM_Plex_Mono } from "next/font/google";
-import favicon from "@/assets/white on black logo.png";
+import favicon from "@/assets/logos/white on black logo.png";
 import site from "@/lib/data/site.json";
 import "./globals.css";
 

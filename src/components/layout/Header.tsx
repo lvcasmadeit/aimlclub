@@ -3,8 +3,8 @@
 import { useEffect, useId, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
-import blackLogo from "@/assets/blacktransparent.png";
-import whiteLogo from "@/assets/whitetransparent.png";
+import blackLogo from "@/assets/logos/blacktransparent.png";
+import whiteLogo from "@/assets/logos/whitetransparent.png";
 import site from "@/lib/data/site.json";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";

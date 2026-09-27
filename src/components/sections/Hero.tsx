@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import { motion, useReducedMotion, type Variants } from "motion/react";
-import cloudHeroDark from "@/assets/cloudherodark-dithered.png";
-import cloudHeroLight from "@/assets/cloudherolight-dithered.png";
+import blackTextLogo from "@/assets/logos/blackonwhitetext.png";
+import whiteTextLogo from "@/assets/logos/whiteonblacktext.png";
 import { ButtonLink } from "@/components/ui/Button";
 import site from "@/lib/data/site.json";
 
@@ -26,28 +26,8 @@ export function Hero() {
 
   return (
     <section id="hero" className="relative flex min-h-svh items-center overflow-hidden">
-      <div aria-hidden className="pointer-events-none absolute inset-0 z-0">
-        <Image
-          src={cloudHeroDark}
-          alt=""
-          fill
-          sizes="100vw"
-          fetchPriority="high"
-          className="object-cover object-[60%_center] light:hidden"
-        />
-        <Image
-          src={cloudHeroLight}
-          alt=""
-          fill
-          sizes="100vw"
-          fetchPriority="high"
-          className="hidden object-cover object-[60%_center] light:block"
-        />
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-background" />
-      </div>
-
       <motion.div
-        className="relative z-10 mx-auto w-full max-w-6xl px-6 pt-28 pb-12 text-center"
+        className="relative z-10 mx-0 w-full px-6 pt-28 pb-12 text-left md:pl-12 lg:ml-[15vw] lg:w-[70vw] lg:max-w-none lg:px-0"
         variants={container}
         initial={reduceMotion ? false : "hidden"}
         animate="visible"
@@ -59,11 +39,27 @@ export function Hero() {
           {site.university}
         </motion.p>
 
-        <motion.h1
-          variants={item}
-          className="mx-auto mt-6 max-w-4xl font-sans text-[clamp(3rem,15vw,6rem)] font-normal leading-[1.05] tracking-tight"
-        >
-          {site.heroTitle}
+        <motion.h1 variants={item} className="mt-6 max-w-4xl">
+          <span className="sr-only">{site.heroTitle}</span>
+          <span
+            aria-hidden="true"
+            className="relative block aspect-[107/25] w-full max-w-[40rem] overflow-hidden"
+          >
+            <Image
+              src={whiteTextLogo}
+              alt=""
+              fill
+              sizes="(min-width: 40rem) 40rem, calc(100vw - 3rem)"
+              className="object-cover light:hidden"
+            />
+            <Image
+              src={blackTextLogo}
+              alt=""
+              fill
+              sizes="(min-width: 40rem) 40rem, calc(100vw - 3rem)"
+              className="hidden object-cover light:block"
+            />
+          </span>
           <span className="mt-5 block font-sans text-[clamp(1.875rem,7.5vw,3rem)] font-normal leading-snug tracking-normal text-foreground sm:mt-6">
             {site.tagline}
           </span>
@@ -71,14 +67,14 @@ export function Hero() {
 
         <motion.p
           variants={item}
-          className="mx-auto mt-8 max-w-xl text-base leading-relaxed text-foreground/90 sm:text-lg"
+          className="mt-8 max-w-xl text-base leading-relaxed text-foreground/90 sm:text-lg"
         >
           {site.mission}
         </motion.p>
 
         <motion.div
           variants={item}
-          className="mt-10 flex flex-wrap items-center justify-center gap-3 sm:gap-4"
+          className="mt-10 flex flex-wrap items-center justify-start gap-3 sm:gap-4"
         >
           <ButtonLink
             href={site.joinUrl}

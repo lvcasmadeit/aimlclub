@@ -1,10 +1,14 @@
 "use client";
 
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import Image, { type StaticImageData } from "next/image";
 import { useId, useRef, useState, type KeyboardEvent } from "react";
 import buildImage from "@/assets/ditheredbuilddark.png";
+import buildLightImage from "@/assets/ditheredbuildlight.png";
 import communityImage from "@/assets/ditheredcommunitydark.png";
+import communityLightImage from "@/assets/ditheredcommunitylight.png";
 import learnImage from "@/assets/ditheredlearndark.png";
+import learnLightImage from "@/assets/ditheredlearnlight.png";
 import type { AboutTab, AboutTabId } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
@@ -12,10 +16,10 @@ interface AboutTabsProps {
   tabs: AboutTab[];
 }
 
-const tabImages: Record<AboutTabId, StaticImageData> = {
-  build: buildImage,
-  community: communityImage,
-  learn: learnImage,
+const tabImages: Record<AboutTabId, { dark: StaticImageData; light: StaticImageData }> = {
+  build: { dark: buildImage, light: buildLightImage },
+  community: { dark: communityImage, light: communityLightImage },
+  learn: { dark: learnImage, light: learnLightImage },
 };
 
 export function AboutTabs({ tabs }: AboutTabsProps) {
@@ -24,6 +28,7 @@ export function AboutTabs({ tabs }: AboutTabsProps) {
   const [activeTabId, setActiveTabId] = useState<AboutTabId | undefined>(tabs[0]?.id);
   const activeIndex = Math.max(0, tabs.findIndex((tab) => tab.id === activeTabId));
   const activeTab = tabs[activeIndex];
+  const reduceMotion = useReducedMotion();
 
   if (!activeTab) return null;
 
@@ -49,7 +54,7 @@ export function AboutTabs({ tabs }: AboutTabsProps) {
   const panelId = `${tabsId}-panel`;
 
   return (
-    <div className="mt-16 sm:mt-20">
+    <div className="mt-10 sm:mt-12">
       <div className="flex justify-center">
         <div aria-label="About focus" className="flex flex-wrap justify-center gap-1 rounded-full border border-border bg-background-soft/40 p-1" role="tablist">
           {tabs.map((tab, index) => {
@@ -83,26 +88,49 @@ export function AboutTabs({ tabs }: AboutTabsProps) {
         role="tabpanel"
         aria-labelledby={`${tabsId}-tab-${activeTab.id}`}
         tabIndex={0}
-        className="mt-10 grid gap-10 outline-none focus-visible:ring-2 focus-visible:ring-accent lg:grid-cols-[minmax(0,1fr)_minmax(18rem,0.85fr)] lg:items-center lg:gap-16"
+        className="mt-12 outline-none focus-visible:ring-2 focus-visible:ring-accent sm:mt-16"
       >
-        <div>
-          <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent">Placeholder direction</p>
-          <h3 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">{activeTab.label}</h3>
-        </div>
+        <AnimatePresence initial={false} mode="wait">
+          <motion.div
+            key={activeTab.id}
+            initial={reduceMotion ? false : { opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={reduceMotion ? { opacity: 1 } : { opacity: 0, y: -6 }}
+            transition={{
+              duration: reduceMotion ? 0 : 0.28,
+              ease: [0.16, 1, 0.3, 1],
+            }}
+            className="grid gap-8 text-left lg:grid-cols-[minmax(0,0.85fr)_minmax(24rem,1.15fr)] lg:items-center lg:gap-16"
+          >
+            <div>
+              <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent">Placeholder direction</p>
+              <h3 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">{activeTab.label}</h3>
+            </div>
 
-        <div className="w-full max-w-md justify-self-end">
-          <div className="rounded-[1.5rem] border border-border bg-background-soft/50 p-3">
-            <div className="rounded-[1.1rem] border border-border bg-background p-5 sm:p-6">
-              <div className="flex items-center justify-between gap-4 font-mono text-[0.65rem] uppercase tracking-[0.18em] text-muted">
-                <span>{activeTab.label} / visual</span>
-                <span>{String(activeIndex + 1).padStart(2, "0")}</span>
-              </div>
-              <div aria-hidden="true" className="relative mt-6 aspect-[4/3] overflow-hidden rounded-xl border border-border">
-                <Image src={tabImages[activeTab.id]} alt="" fill sizes="(min-width: 1024px) 28rem, 100vw" className="object-cover" />
+            <div className="w-full justify-self-end">
+              <div className="relative aspect-[16/9] overflow-hidden rounded-[1.5rem] border border-border bg-background-soft/50">
+                <Image
+                  src={tabImages[activeTab.id].dark}
+                  alt=""
+                  fill
+                  unoptimized
+                  quality={100}
+                  sizes="(min-width: 1024px) 40rem, (min-width: 640px) 80vw, calc(100vw - 3rem)"
+                  className="object-cover light:hidden"
+                />
+                <Image
+                  src={tabImages[activeTab.id].light}
+                  alt=""
+                  fill
+                  unoptimized
+                  quality={100}
+                  sizes="(min-width: 1024px) 40rem, (min-width: 640px) 80vw, calc(100vw - 3rem)"
+                  className="hidden object-cover light:block"
+                />
               </div>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </AnimatePresence>
       </div>
     </div>
   );
