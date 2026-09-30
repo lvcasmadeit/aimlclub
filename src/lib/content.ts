@@ -7,7 +7,6 @@ import type {
   MeetingsData,
   PastMeeting,
   Project,
-  ProjectsNotice,
   UpcomingMeeting,
 } from "@/lib/types";
 import { createSupabasePublicClient } from "@/lib/supabase/public";
@@ -85,13 +84,10 @@ export const getMeetingsContent = cache(async function getMeetingsContent(): Pro
   return { upcoming, past };
 });
 
-export const getProjectsContent = cache(async function getProjectsContent(): Promise<{
-  notice: ProjectsNotice;
-  projects: Project[];
-}> {
-  const notice = projectFallback as ProjectsNotice;
+export const getProjectsContent = cache(async function getProjectsContent(): Promise<Project[]> {
+  const fallback = projectFallback as Project[];
   const supabase = createSupabasePublicClient();
-  if (!supabase) return { notice, projects: [] };
+  if (!supabase) return fallback;
 
   const { data, error } = await supabase
     .from("projects")
@@ -104,7 +100,7 @@ export const getProjectsContent = cache(async function getProjectsContent(): Pro
 
   if (error || !data) {
     console.error("Unable to load published projects from Supabase.", error?.message);
-    return { notice, projects: [] };
+    return fallback;
   }
 
   const projects = (data as ProjectRow[]).map((row) => {
@@ -126,5 +122,5 @@ export const getProjectsContent = cache(async function getProjectsContent(): Pro
     };
   });
 
-  return { notice, projects };
+  return projects.length > 0 ? projects : fallback;
 });

@@ -1,4 +1,16 @@
-{
-  "title": "Projects incoming",
-  "subtitle": "Pods are forming this semester. Build with us and get your work on this wall."
-}
+[
+  {
+    "id": "placeholder-study-buddy",
+    "title": "Campus Study Buddy (Placeholder)",
+    "description": "A lightweight AI study assistant that turns course material into searchable explanations and quick practice questions. Placeholder project for previewing the carousel.",
+    "tags": ["Python", "LLMs", "Prototype"],
+    "status": "exploring"
+  },
+  {
+    "id": "placeholder-course-notes",
+    "title": "Course Notes Assistant (Placeholder)",
+    "description": "A demo concept for turning lecture notes into concise recaps and practice questions. Placeholder project for previewing the carousel.",
+    "tags": ["NLP", "Python", "Prototype"],
+    "status": "exploring"
+  }
+]

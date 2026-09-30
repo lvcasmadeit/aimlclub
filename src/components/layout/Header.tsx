@@ -2,6 +2,7 @@
 
 import { useEffect, useId, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
 import blackLogo from "@/assets/logos/blacktransparent.png";
 import whiteLogo from "@/assets/logos/whitetransparent.png";
@@ -125,8 +126,14 @@ export function Header() {
           </div>
         </div>
 
-        <div className="hidden items-center gap-4 md:flex">
+        <div className="hidden items-center gap-3 md:flex">
           <ThemeToggle />
+          <Link
+            href="/admin/login"
+            className="rounded-lg border border-border px-3 py-2 text-sm font-medium text-muted transition-colors hover:border-accent/50 hover:text-foreground"
+          >
+            Admin login
+          </Link>
           <a
             href={site.joinUrl}
             target="_blank"
@@ -193,6 +200,13 @@ export function Header() {
                   {link.label}
                 </a>
               ))}
+              <Link
+                href="/admin/login"
+                onClick={() => setOpen(false)}
+                className="mt-2 w-full max-w-xs rounded-lg border border-border px-4 py-2 text-center text-sm font-medium text-muted transition-colors hover:border-accent/50 hover:text-foreground"
+              >
+                Admin login
+              </Link>
               <a
                 href={site.joinUrl}
                 target="_blank"

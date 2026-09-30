@@ -20,11 +20,6 @@ export interface Project {
   coverImageUrl?: string;
 }
 
-export interface ProjectsNotice {
-  title: string;
-  subtitle: string;
-}
-
 export interface TeamMember {
   id: string;
   name: string;
