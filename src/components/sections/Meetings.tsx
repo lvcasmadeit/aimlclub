@@ -1,12 +1,12 @@
 import { Reveal } from "@/components/ui/AnimatedSection";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { MeetingTimeline } from "@/components/sections/MeetingTimeline";
-import meetings from "@/lib/data/meetings.json";
+import { getMeetingsContent } from "@/lib/content";
 import { buildTimeline } from "@/lib/meetings";
-import type { MeetingsData } from "@/lib/types";
 
-export function Meetings() {
-  const { entries, focusId } = buildTimeline(meetings as MeetingsData);
+export async function Meetings() {
+  const meetings = await getMeetingsContent();
+  const { entries, focusId } = buildTimeline(meetings);
 
   return (
     <section id="meetings" className="border-y border-border">

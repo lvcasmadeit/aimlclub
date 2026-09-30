@@ -1,10 +1,10 @@
-import meetings from "@/lib/data/meetings.json";
+import { getMeetingsContent } from "@/lib/content";
 import { getNextEvent } from "@/lib/meetings";
 import { formatMeetingWhen } from "@/lib/utils";
-import type { MeetingsData } from "@/lib/types";
 
-export function NextEventBar() {
-  const next = getNextEvent((meetings as MeetingsData).upcoming);
+export async function NextEventBar() {
+  const meetings = await getMeetingsContent();
+  const next = getNextEvent(meetings.upcoming);
   if (!next) return null;
 
   return (

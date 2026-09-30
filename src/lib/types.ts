@@ -17,6 +17,7 @@ export interface Project {
   status: "active" | "shipped" | "exploring";
   githubUrl?: string;
   demoUrl?: string;
+  coverImageUrl?: string;
 }
 
 export interface ProjectsNotice {

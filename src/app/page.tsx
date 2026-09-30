@@ -8,6 +8,8 @@ import { Team } from "@/components/sections/Team";
 import { Meetings } from "@/components/sections/Meetings";
 import { Contact } from "@/components/sections/Contact";
 
+export const dynamic = "force-dynamic";
+
 export default function Home() {
   return (
     <>
