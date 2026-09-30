@@ -1,16 +1,9 @@
 [
   {
-    "id": "placeholder-study-buddy",
-    "title": "Campus Study Buddy (Placeholder)",
-    "description": "A lightweight AI study assistant that turns course material into searchable explanations and quick practice questions. Placeholder project for previewing the carousel.",
-    "tags": ["Python", "LLMs", "Prototype"],
-    "status": "exploring"
-  },
-  {
-    "id": "placeholder-course-notes",
-    "title": "Course Notes Assistant (Placeholder)",
-    "description": "A demo concept for turning lecture notes into concise recaps and practice questions. Placeholder project for previewing the carousel.",
-    "tags": ["NLP", "Python", "Prototype"],
-    "status": "exploring"
+    "id": "squadpulse",
+    "title": "SquadPulse",
+    "description": "Affordable sports-science analytics for high school and collegiate teams, tracking training loads and flagging injury-risk spikes without costly wearables or subscriptions.",
+    "tags": [],
+    "status": "active"
   }
 ]

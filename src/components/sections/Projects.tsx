@@ -2,9 +2,14 @@ import { ProjectCarousel } from "@/components/sections/ProjectCarousel";
 import { Reveal } from "@/components/ui/AnimatedSection";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { getProjectsContent } from "@/lib/content";
+import squadPulseCover from "@/assets/project_imgs/squadpulse.png";
 
 export async function Projects() {
-  const projects = await getProjectsContent();
+  const projects = (await getProjectsContent()).map((project) =>
+    project.id === "squadpulse" && !project.coverImageUrl
+      ? { ...project, coverImageUrl: squadPulseCover.src }
+      : project,
+  );
 
   return (
     <section id="projects" className="border-b border-border">
