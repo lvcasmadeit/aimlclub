@@ -7,6 +7,7 @@ import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import type { AboutCardId } from "@/lib/types";
+import { useThemeVars } from "@/lib/useThemeVars";
 import { cn } from "@/lib/utils";
 
 interface AboutCardSceneProps {
@@ -103,30 +104,22 @@ interface Palette {
   glass: string;
 }
 
-function readPalette(): Palette {
-  const styles = getComputedStyle(document.documentElement);
-  const read = (name: string) => styles.getPropertyValue(name).trim();
-  const palette = {
-    backdrop: read("--glass-backdrop"),
-    ice: read("--blob-ice"),
-    sky: read("--blob-sky"),
-    periwinkle: read("--blob-periwinkle"),
-    cobalt: read("--blob-cobalt"),
-    glass: read("--glass-tint"),
-  };
-  return { ...palette, key: Object.values(palette).join() };
-}
+const PALETTE_VARS = ["glass-backdrop", "blob-ice", "blob-sky", "blob-periwinkle", "blob-cobalt", "glass-tint"] as const;
 
-function useThemePalette() {
-  const [palette, setPalette] = useState(readPalette);
-
-  useEffect(() => {
-    const observer = new MutationObserver(() => setPalette(readPalette()));
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
-    return () => observer.disconnect();
-  }, []);
-
-  return palette;
+function useThemePalette(): Palette {
+  const vars = useThemeVars(PALETTE_VARS);
+  return useMemo(
+    () => ({
+      key: Object.values(vars).join(),
+      backdrop: vars["glass-backdrop"],
+      ice: vars["blob-ice"],
+      sky: vars["blob-sky"],
+      periwinkle: vars["blob-periwinkle"],
+      cobalt: vars["blob-cobalt"],
+      glass: vars["glass-tint"],
+    }),
+    [vars],
+  );
 }
 
 /** What the glass "sees" behind it: soft blue blobs, roughly matching the CSS blobs. */
