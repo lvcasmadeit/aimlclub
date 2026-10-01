@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { Space_Grotesk, IBM_Plex_Mono } from "next/font/google";
 import favicon from "@/assets/logos/white on black logo.png";
 import site from "@/lib/data/site.json";
@@ -50,7 +51,10 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-full">{children}</body>
+      <body className="min-h-full">
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
