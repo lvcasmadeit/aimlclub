@@ -1,12 +1,13 @@
-export type AboutTabId = "learn" | "build" | "community";
+export type AboutCardId = "hacks" | "speakers" | "workshops" | "projects";
 
-export interface AboutTab {
-  id: AboutTabId;
-  label: string;
+export interface AboutCard {
+  id: AboutCardId;
   title: string;
-  description: string;
-  cardLabel: string;
-  cardDetail: string;
+  blurb: string;
+  /** Floating "+ chip" tags shown while the card is spotlighted. */
+  chips?: string[];
+  /** In-page anchor or URL for the arrow button. */
+  href: string;
 }
 
 export interface Project {

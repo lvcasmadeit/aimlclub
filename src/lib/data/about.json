@@ -1,28 +1,32 @@
 {
-  "tabs": [
+  "cards": [
     {
-      "id": "learn",
-      "label": "Learn",
-      "title": "Learn together.",
-      "description": "Placeholder copy for workshops, study sessions, and experiments that help us build a stronger AI and ML foundation.",
-      "cardLabel": "Learn visual placeholder",
-      "cardDetail": "Workshop layout TBD"
+      "id": "hacks",
+      "title": "Hacks",
+      "blurb": "Build something real, fast.",
+      "chips": ["Idea", "Prototype", "Demo"],
+      "href": "#meetings"
     },
     {
-      "id": "build",
-      "label": "Build",
-      "title": "Build something real.",
-      "description": "Placeholder copy for project pods, prototypes, and demos that turn ideas into work we can share.",
-      "cardLabel": "Build visual placeholder",
-      "cardDetail": "Project layout TBD"
+      "id": "speakers",
+      "title": "Guest Speakers",
+      "blurb": "Hear from people shaping the field.",
+      "chips": ["Q&A", "Networking"],
+      "href": "#meetings"
     },
     {
-      "id": "community",
-      "label": "Community",
-      "title": "Find your people.",
-      "description": "Placeholder copy for meetups, feedback, and the conversations that make building together more fun.",
-      "cardLabel": "Community visual placeholder",
-      "cardDetail": "Community layout TBD"
+      "id": "workshops",
+      "title": "Workshops",
+      "blurb": "Hands-on with the tools.",
+      "chips": ["Notebooks", "Models", "Deploys"],
+      "href": "#meetings"
+    },
+    {
+      "id": "projects",
+      "title": "Project Groups",
+      "blurb": "Ship with a team, all semester.",
+      "chips": ["Teams", "Demos"],
+      "href": "#projects"
     }
   ]
 }
