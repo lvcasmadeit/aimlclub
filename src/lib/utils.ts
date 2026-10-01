@@ -23,17 +23,6 @@ const nyTime: Intl.DateTimeFormatOptions = {
   timeZone: "America/New_York",
 };
 
-export function formatDate(iso: string) {
-  if (!iso || isTbd(iso)) return "Date TBA";
-
-  const parsed = new Date(iso);
-  if (Number.isNaN(parsed.getTime())) return iso;
-
-  // Fixed locale and timezone keep server and client output identical,
-  // avoiding hydration mismatches from environment differences.
-  return parsed.toLocaleDateString("en-US", nyDate);
-}
-
 /** Date, or date · start–end when `endDate` is provided. */
 export function formatMeetingWhen(date: string, endDate?: string) {
   if (!date || isTbd(date)) return "Date TBA";

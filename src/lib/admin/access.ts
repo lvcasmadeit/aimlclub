@@ -37,11 +37,3 @@ export async function getAdminAccess(): Promise<AdminAccess> {
 
   return { status: "admin", email, userId: claims.sub, supabase };
 }
-
-export async function requireAdmin() {
-  const access = await getAdminAccess();
-  if (access.status !== "admin") {
-    throw new Error("Unauthorized admin action.");
-  }
-  return access;
-}
