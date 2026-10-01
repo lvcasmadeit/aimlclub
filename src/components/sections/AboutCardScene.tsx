@@ -1,8 +1,8 @@
 "use client";
 
-import { Environment, Lightformer, MeshTransmissionMaterial } from "@react-three/drei";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { Lightformer, MeshTransmissionMaterial } from "@react-three/drei";
+import { Canvas, createPortal, useFrame, useThree } from "@react-three/fiber";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
@@ -38,16 +38,54 @@ export default function AboutCardScene({ id, active, animate, fallback }: AboutC
     >
       <ambientLight intensity={0.5} />
       <directionalLight position={[-3, 4, 5]} intensity={1.2} />
-      <Environment key={palette.key} resolution={128}>
+      <LightformerEnvironment key={palette.key} resolution={128}>
         {/* Tinted "room" so reflections read pearly instead of picking up black. */}
         <color attach="background" args={[palette.backdrop]} />
         <Lightformer form="rect" color="#ffffff" intensity={3} position={[-4, 4, 4]} scale={[5, 3, 1]} target={[0, 0, 0]} />
         <Lightformer form="rect" color={palette.ice} intensity={4} position={[5, 1, -3]} scale={[3, 6, 1]} target={[0, 0, 0]} />
         <Lightformer form="rect" color={palette.periwinkle} intensity={2} position={[-4, -3, 2]} scale={[4, 3, 1]} target={[0, 0, 0]} />
         <Lightformer form="ring" color="#ffffff" intensity={2} position={[2, 4, 3]} scale={2} target={[0, 0, 0]} />
-      </Environment>
+      </LightformerEnvironment>
       <Model id={id} palette={palette} active={active} animate={animate} />
     </Canvas>
+  );
+}
+
+/**
+ * Bakes its children (Lightformers) into a cube map once and uses it as the scene environment.
+ * Same approach as drei's <Environment> portal mode, without pulling in its HDR/EXR loaders.
+ */
+function LightformerEnvironment({ children, resolution }: { children: ReactNode; resolution: number }) {
+  const get = useThree((state) => state.get);
+  const camera = useRef<THREE.CubeCamera>(null);
+  const [virtualScene] = useState(() => new THREE.Scene());
+  const target = useMemo(() => {
+    const cubeTarget = new THREE.WebGLCubeRenderTarget(resolution);
+    cubeTarget.texture.type = THREE.HalfFloatType;
+    return cubeTarget;
+  }, [resolution]);
+
+  useEffect(() => () => target.dispose(), [target]);
+
+  useLayoutEffect(() => {
+    const { gl, scene } = get();
+    const autoClear = gl.autoClear;
+    gl.autoClear = true;
+    camera.current?.update(gl, virtualScene);
+    gl.autoClear = autoClear;
+    const previous = scene.environment;
+    scene.environment = target.texture;
+    return () => {
+      scene.environment = previous;
+    };
+  }, [get, virtualScene, target]);
+
+  return createPortal(
+    <>
+      {children}
+      <cubeCamera ref={camera} args={[0.1, 1000, target]} />
+    </>,
+    virtualScene,
   );
 }
 

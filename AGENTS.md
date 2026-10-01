@@ -28,7 +28,7 @@ Edit copy in `src/lib/data/*.json`. Types live in `src/lib/types.ts`. Do not har
 - `site.json` — name, tagline, mission, socials, `joinUrl` (Discord), hero stats
 - `projects.json` — `status`: `active` | `shipped` | `exploring`
 - `team.json` — e-board only (name, role; optional github/linkedin)
-- `meetings.json` — `upcoming` / `past`; dates ISO or `"TBD"` (`formatDate` in `src/lib/utils.ts` handles TBD)
+- `meetings.json` — `upcoming` / `past`; dates ISO or `"TBD"` (`formatMeetingWhen` in `src/lib/utils.ts` handles TBD)
 - `faq.json` — About accordion
 
 Contact form is `mailto:` via `ContactForm.tsx` (no Formspree/Resend unless asked).
@@ -46,7 +46,7 @@ E-board (do not invent extra officers unless asked): Jonathan Doughty (President
 ## Design
 
 - Dark default (`:root`). Light via `html.light`. Toggle + inline script in `layout.tsx` (localStorage `theme`, else `prefers-color-scheme`). `suppressHydrationWarning` on `<html>`.
-- Tokens in `src/app/globals.css`. Accent is **warm amber** (`#f59e0b` dark / `#c2410c` light), secondary terracotta (`--violet` name is historical — it is not purple). Do not revert to cyan.
+- Tokens in `src/app/globals.css`. UI is monochrome: accent is white in dark mode, black in light. The About cards add a blue colorway (`--blob-*`, `--glass-*`).
 - Fonts: Space Grotesk + IBM Plex Mono.
 - Hero only: light wells + `.hero-scan` grid. **No film grain.** Do not put the scan grid on other sections.
 - Tone: startup-minded students, not “delusional optimists.” Tagline currently: “Builders and beyond, exploring AI & ML.”

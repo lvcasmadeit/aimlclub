@@ -11,9 +11,7 @@
   --border: rgba(255, 255, 255, 0.08);
   --accent: #ffffff;
   --accent-soft: rgba(0, 0, 0, 0.16);
-  --violet: #ffffff;
   --hover: rgba(255, 255, 255, 0.05);
-  --tag: rgba(255, 255, 255, 0.04);
 
   /* About cards: blue colorway (blobs + glass placeholder objects). */
   --card-surface: #07090e;
@@ -38,9 +36,7 @@
   --border: rgba(0, 0, 0, 0.1);
   --accent: #000000;
   --accent-soft: #ffffff;
-  --violet: #000000;
   --hover: rgba(0, 0, 0, 0.04);
-  --tag: rgba(0, 0, 0, 0.05);
 
   --card-surface: #f4f6f9;
   --blob-cobalt: #93c5fd;
@@ -64,9 +60,7 @@
   --color-border: var(--border);
   --color-accent: var(--accent);
   --color-accent-soft: var(--accent-soft);
-  --color-violet: var(--violet);
   --color-hover: var(--hover);
-  --color-tag: var(--tag);
   --font-sans: var(--font-space-grotesk);
   --font-mono: var(--font-plex-mono);
 }
