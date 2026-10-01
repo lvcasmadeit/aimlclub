@@ -14,6 +14,20 @@
   --violet: #ffffff;
   --hover: rgba(255, 255, 255, 0.05);
   --tag: rgba(255, 255, 255, 0.04);
+
+  /* About cards: blue colorway (blobs + glass placeholder objects). */
+  --card-surface: #07090e;
+  --blob-cobalt: #1d4ed8;
+  --blob-sky: #0ea5e9;
+  --blob-periwinkle: #6366f1;
+  --blob-ice: #22d3ee;
+  --blob-opacity: 0.8;
+  --glass-hi: rgba(255, 255, 255, 0.85);
+  --glass-body: #8ea6d6;
+  --glass-shade: #2b3d66;
+  --glass-edge: rgba(255, 255, 255, 0.22);
+  --glass-tint: #e6edff;
+  --glass-backdrop: #2a3a66;
 }
 
 .light {
@@ -27,6 +41,19 @@
   --violet: #000000;
   --hover: rgba(0, 0, 0, 0.04);
   --tag: rgba(0, 0, 0, 0.05);
+
+  --card-surface: #f4f6f9;
+  --blob-cobalt: #93c5fd;
+  --blob-sky: #a5e4fc;
+  --blob-periwinkle: #c4c8fd;
+  --blob-ice: #a5f3fc;
+  --blob-opacity: 0.9;
+  --glass-hi: #ffffff;
+  --glass-body: #dfe6f4;
+  --glass-shade: #aebcd8;
+  --glass-edge: rgba(255, 255, 255, 0.7);
+  --glass-tint: #f2f6ff;
+  --glass-backdrop: #dde7fb;
 }
 
 @theme inline {
@@ -112,6 +139,21 @@
 }
 
 
+/* About cards: slow blob drift behind each card's object. */
+@keyframes blob-drift {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(6%, -5%) scale(1.08);
+  }
+}
+
+.animate-blob-drift {
+  animation: blob-drift 14s ease-in-out infinite;
+}
+
 /* Focused meeting node: pulse the glow layer's opacity. */
 @keyframes event-glow {
   0%,
@@ -133,7 +175,8 @@
   }
 
   .animate-marquee,
-  .animate-event-glow {
+  .animate-event-glow,
+  .animate-blob-drift {
     animation: none;
   }
 
