@@ -26,6 +26,11 @@
   --glass-edge: rgba(255, 255, 255, 0.22);
   --glass-tint: #e6edff;
   --glass-backdrop: #2a3a66;
+
+  /* Hero loss landscape: SGD uses --foreground; additive glow only on dark. */
+  --landscape-momentum: #93c5fd;
+  --landscape-adam: #22d3ee;
+  --landscape-glow: 1;
 }
 
 .light {
@@ -50,6 +55,10 @@
   --glass-edge: rgba(255, 255, 255, 0.7);
   --glass-tint: #f2f6ff;
   --glass-backdrop: #dde7fb;
+
+  --landscape-momentum: #2563eb;
+  --landscape-adam: #0891b2;
+  --landscape-glow: 0;
 }
 
 @theme inline {

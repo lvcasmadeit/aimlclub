@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion, useReducedMotion, type Variants } from "motion/react";
 import blackTextLogo from "@/assets/logos/blackonwhitetext.png";
 import whiteTextLogo from "@/assets/logos/whiteonblacktext.png";
+import { HeroLandscape } from "@/components/sections/landscape/HeroLandscape";
 import { ButtonLink } from "@/components/ui/Button";
 import site from "@/lib/data/site.json";
 
@@ -27,7 +28,7 @@ export function Hero() {
   return (
     <section id="hero" className="relative flex min-h-svh items-center overflow-hidden">
       <motion.div
-        className="relative z-10 mx-0 w-full px-6 pt-28 pb-12 text-left md:pl-12 lg:ml-[15vw] lg:w-[70vw] lg:max-w-none lg:px-0"
+        className="relative z-10 mx-0 w-full px-6 pt-28 pb-12 text-left md:pl-12 lg:ml-[7vw] lg:w-[44vw] lg:max-w-none lg:px-0"
         variants={container}
         initial={reduceMotion ? false : "hidden"}
         animate="visible"
@@ -89,6 +90,8 @@ export function Hero() {
           </ButtonLink>
         </motion.div>
       </motion.div>
+
+      <HeroLandscape className="absolute top-1/2 right-[5vw] hidden aspect-square w-[38vw] max-w-[40rem] -translate-y-1/2 lg:block" />
     </section>
   );
 }
