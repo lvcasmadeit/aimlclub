@@ -13,22 +13,26 @@ Repo: https://github.com/lvcasmadeit/aimlclub
 
 ## Stack
 
-Next.js 16 App Router (`src/app`), React 19, TypeScript strict, Tailwind CSS v4, Motion (`motion/react`). Path alias `@/*` → `src/*`. No CMS, auth, or backend.
+Next.js 16 App Router (`src/app`), React 19, TypeScript strict, Tailwind CSS v4, Motion (`motion/react`), and React Three Fiber/Three.js for the existing visual scenes. Path alias `@/*` → `src/*`.
+
+Supabase SSR/client support and an admin dashboard exist in the codebase, but Supabase is not configured for the current production workflow. Until the owner explicitly enables it, the public site uses JSON fallback content and the dashboard remains unfinished.
 
 ## Git and deploy
 
 - **`main`** → Vercel production. **`dev`** → continued work and preview deploys.
-- Do not merge to `main` unless asked. Do not invent GitHub/LinkedIn URLs for people.
+- Do not merge to `main` unless explicitly asked. Do not invent GitHub/LinkedIn URLs for people.
+- Keep `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` unset in production until the owner confirms Supabase setup is complete. With both set, public events and projects are read from Supabase rather than their JSON fallback files.
 - Vercel project is already linked (`.vercel/` is gitignored).
 
 ## Content
 
 Edit copy in `src/lib/data/*.json`. Types live in `src/lib/types.ts`. Do not hardcode club copy in components if it belongs in JSON.
 
-- `site.json` — name, tagline, mission, socials, `joinUrl` (Discord), hero stats
-- `projects.json` — `status`: `active` | `shipped` | `exploring`
+- `site.json` — name, tagline, mission, socials, and `joinUrl` (Discord)
+- `projects.json` — public JSON fallback; SquadPulse is the current project. `status`: `active` | `shipped` | `exploring`
 - `team.json` — e-board only (name, role; optional github/linkedin)
-- `meetings.json` — `upcoming` / `past`; dates ISO or `"TBD"` (`formatMeetingWhen` in `src/lib/utils.ts` handles TBD)
+- `meetings.json` — public JSON fallback; AI Agents is the current upcoming event and the other listed entries are past events. Dates are ISO or `"TBD"` (`formatMeetingWhen` in `src/lib/utils.ts` handles TBD)
+- `featured-event.json` — featured event ID and media metadata; its files live in `public/media/`
 - `faq.json` — About accordion
 
 Contact form is `mailto:` via `ContactForm.tsx` (no Formspree/Resend unless asked).
@@ -46,11 +50,11 @@ E-board (do not invent extra officers unless asked): Jonathan Doughty (President
 ## Design
 
 - Dark default (`:root`). Light via `html.light`. Toggle + inline script in `layout.tsx` (localStorage `theme`, else `prefers-color-scheme`). `suppressHydrationWarning` on `<html>`.
-- Tokens in `src/app/globals.css`. UI is monochrome: accent is white in dark mode, black in light. The About cards add a blue colorway (`--blob-*`, `--glass-*`).
+- Tokens in `src/app/globals.css`. The approved palette is monochrome: white accent in dark mode and black accent in light mode. About cards use blue glass/blob colors; the hero loss-landscape visualization uses optimizer colors.
 - Fonts: Space Grotesk + IBM Plex Mono.
-- Hero only: light wells + `.hero-scan` grid. **No film grain.** Do not put the scan grid on other sections.
-- Tone: startup-minded students, not “delusional optimists.” Tagline currently: “Builders and beyond, exploring AI & ML.”
-- Animation: transform/opacity only; `prefers-reduced-motion`; Motion in small `'use client'` islands. No GSAP/Three.js unless asked.
+- The hero includes a dynamically loaded interactive loss-landscape visualization on large screens. The About cards use glass-style 3D visuals. These existing Three.js scenes are intentional; do not add other visualization frameworks without asking. **No film grain or `.hero-scan` grid.**
+- Tone: startup-minded students, not “delusional optimists.” Approved tagline: “Learn. Build. Ship.”
+- Honor `prefers-reduced-motion`; keep Motion interactions in small `'use client'` islands and avoid unnecessary animation.
 
 ## Conventions
 
