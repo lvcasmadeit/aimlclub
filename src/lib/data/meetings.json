@@ -1,5 +1,13 @@
 {
-  "upcoming": [],
+  "upcoming": [
+    {
+      "id": "ai-agents",
+      "title": "AI Agents",
+      "date": "2026-10-08T18:30:00-04:00",
+      "location": "Olsen-330",
+      "description": "Learn how to utilize the power of agents to build anything you can imagine."
+    }
+  ],
   "past": [
     {
       "id": "fall-engagement-fair",

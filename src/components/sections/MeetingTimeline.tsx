@@ -154,7 +154,7 @@ export function MeetingTimeline({ entries, focusId }: MeetingTimelineProps) {
                 </p>
                 <p className="mt-2 font-mono text-xs text-muted">
                   {entry.kind === "upcoming"
-                    ? formatMeetingWhen(entry.date, entry.endDate)
+                    ? formatMeetingWhen(entry.date, entry.endDate, true)
                     : formatMeetingWhen(entry.date)}
                   {entry.kind === "upcoming"
                     ? ` · ${formatLocation(entry.location)}`

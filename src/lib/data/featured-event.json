@@ -1,0 +1,15 @@
+{
+  "eventId": "ai-agents",
+  "title": "AI Agents",
+  "trailer": {
+    "src": "/media/ai-agents-trailer.mp4",
+    "poster": "/media/ai-agents-trailer-poster.jpg",
+    "label": "AI Agents event trailer"
+  },
+  "flyer": {
+    "src": "/media/ai-agents-flyer.jpg",
+    "width": 1728,
+    "height": 2304,
+    "alt": "AI Agents flyer: learn how to utilize the power of agents to build anything you can imagine. October 8, 2026 at 6:30 PM in Olsen-330. QR codes for the club website and Discord."
+  }
+}

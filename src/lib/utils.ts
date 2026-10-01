@@ -23,15 +23,20 @@ const nyTime: Intl.DateTimeFormatOptions = {
   timeZone: "America/New_York",
 };
 
-/** Date, or date · start–end when `endDate` is provided. */
-export function formatMeetingWhen(date: string, endDate?: string) {
+/**
+ * Date, or date · start–end when `endDate` is provided.
+ * With `withStartTime`, events without an end time show date · start.
+ */
+export function formatMeetingWhen(date: string, endDate?: string, withStartTime = false) {
   if (!date || isTbd(date)) return "Date TBA";
 
   const start = new Date(date);
   if (Number.isNaN(start.getTime())) return date;
 
   const datePart = start.toLocaleDateString("en-US", nyDate);
-  if (!endDate || isTbd(endDate)) return datePart;
+  if (!endDate || isTbd(endDate)) {
+    return withStartTime ? `${datePart} · ${start.toLocaleTimeString("en-US", nyTime)}` : datePart;
+  }
 
   const end = new Date(endDate);
   if (Number.isNaN(end.getTime())) return datePart;

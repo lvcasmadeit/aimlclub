@@ -1,5 +1,6 @@
 import { Reveal } from "@/components/ui/AnimatedSection";
 import { SectionLabel } from "@/components/ui/SectionLabel";
+import { FeaturedEvent } from "@/components/sections/FeaturedEvent";
 import { MeetingTimeline } from "@/components/sections/MeetingTimeline";
 import { getMeetingsContent } from "@/lib/content";
 import { buildTimeline } from "@/lib/meetings";
@@ -22,6 +23,9 @@ export async function Meetings() {
       </div>
       <div className="pb-20 sm:pb-28">
         <MeetingTimeline entries={entries} focusId={focusId} />
+        <Reveal className="mx-auto mt-16 max-w-6xl px-6 sm:mt-20">
+          <FeaturedEvent meetings={meetings} />
+        </Reveal>
       </div>
     </section>
   );

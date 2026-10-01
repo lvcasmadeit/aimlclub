@@ -16,7 +16,7 @@ export async function NextEventBar() {
       <span className="shrink-0 text-muted uppercase">Next up</span>
       <span className="truncate text-foreground">{next.title}</span>
       <span className="hidden shrink-0 text-muted sm:inline">
-        · {formatMeetingWhen(next.date, next.endDate)}
+        · {formatMeetingWhen(next.date, next.endDate, true)}
       </span>
     </a>
   );
