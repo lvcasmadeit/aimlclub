@@ -122,5 +122,5 @@ export const getProjectsContent = cache(async function getProjectsContent(): Pro
     };
   });
 
-  return projects.length > 0 ? projects : fallback;
+  return projects;
 });

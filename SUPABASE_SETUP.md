@@ -1,42 +1,58 @@
-# Supabase setup for the admin dashboard
+# Production Supabase and admin dashboard
 
-The app can still build and render its existing JSON content without Supabase credentials. The admin dashboard remains unavailable until a Supabase project is configured.
+The dashboard at `/admin` manages events and projects using the existing Production Supabase project. The owner has chosen to share that database with local development and any future Vercel Preview deployments; no separate Supabase project or database branch is planned.
 
-## 1. Create and configure a Supabase project
+The application allows content mutations in local development (`NODE_ENV=development`) and on the Vercel Production deployment. Vercel Preview dashboard UIs/server actions are read-only. Local writes go directly to Production Supabase. This is an application-level safeguard, not database isolation: Supabase RLS authorizes the allowlisted admin independent of deployment environment, so an authenticated admin could still write directly through Supabase APIs.
 
-1. Create a Supabase project and copy its **Project URL** and **publishable key** from **Project Settings → API**.
-2. Copy `.env.example` to `.env.local` and fill in:
-   - `NEXT_PUBLIC_SUPABASE_URL`
-   - `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
-3. Do not add a service-role key to the app. Public reads and admin writes are restricted by the included Row Level Security policies.
+Do not unset or replace the current Production environment variables or apply SQL to Production without the owner's explicit approval. The owner has authorized adding the Agents event through the local dashboard; all such local saves affect live Production data. The Production schema and existing rows have not otherwise been fully verified, and the owner will perform broader live CRUD testing separately.
 
-## 2. Apply the database migration
+## 1. Verify Production before applying SQL
 
-Run the SQL in `supabase/migrations/20260928111011_admin_dashboard.sql` once, using the Supabase SQL Editor or the Supabase CLI. It creates the events/projects tables, admin allowlist, RLS policies, and the public `project-covers` bucket. It authorizes `lucas_brandao@student.uml.edu` as the initial admin and seeds the two events already shown in the timeline.
+The Production database may already contain some or all of the admin schema and public content. In the Supabase dashboard for the Production project:
 
-To authorize another person later, invite their email in Supabase Auth and add a lowercase email row to `public.admin_users`. To revoke access, set that row's `is_active` to `false`.
+1. Check **Table Editor** for `public.admin_users`, `public.events`, and `public.projects`.
+2. Review existing event titles/dates/statuses and project titles/visibility. Preserve any existing edits; do not delete or replace rows just to match the JSON fallback.
+3. Check whether the `project-covers` Storage bucket and its policies already exist.
 
-## 3. Enable invite-only email sign-in
+The base migration uses `CREATE TABLE IF NOT EXISTS`, but also creates named policies without `IF NOT EXISTS`; do not rerun it over an already-configured schema. If the state is partial or unclear, inspect the existing policies and correct only what is missing.
 
-1. In **Authentication → Providers → Email**, enable email OTP/magic links and disable public sign-ups.
-2. Invite `lucas_brandao@student.uml.edu` from **Authentication → Users**.
-3. In **Authentication → URL Configuration → Redirect URLs**, allow the exact callback origins you use, for example `http://localhost:3000/auth/callback`, `https://aimlclub-five.vercel.app/auth/callback`, and approved Vercel preview URLs ending in `/auth/callback`. Add the port you actually use locally. Keep **Site URL** set to the public site origin; the app passes the callback as `emailRedirectTo`.
-4. Keep the Supabase project’s email confirmation enabled. The login flow uses `shouldCreateUser: false`; each admin must exist under **Authentication → Users** as well as in `public.admin_users`.
+## 2. Migrations and initial content
 
-## Sign-in troubleshooting
+The base migration is [`supabase/migrations/20260928111011_admin_dashboard.sql`](supabase/migrations/20260928111011_admin_dashboard.sql). When applied to a new schema, it creates the events/projects tables, admin allowlist, RLS policies, and public `project-covers` bucket. It authorizes `lucas_brandao@student.uml.edu` and seeds the two past events. Apply it once only if those objects are not already configured.
 
-- **Expired or already-used link:** Request one new link, then open the newest email promptly. Magic links are single-use. If the original Supabase invitation expired before it was accepted, resend the invitation from **Authentication → Users** first.
-- **Email-send rate limit:** Stop retrying until Supabase's configured limit window resets; invites and sign-in links both consume email sends, and the reset may be longer than a few minutes. Inspect **Authentication → Logs** and the SMTP provider's quota. Supabase's built-in mailer is restrictive; configure a custom SMTP provider under **Authentication → SMTP Settings** for reliable ongoing use.
-- **No Auth user:** An entry in `public.admin_users` only grants authorization after login; it does not create or invite a Supabase Auth user. Invite the email under **Authentication → Users** and complete that invitation. Avoid deleting and re-inviting the account during troubleshooting; request a sign-in link for the existing confirmed Auth user instead.
-- **Callback rejected:** Verify the exact callback URL for the current origin and port is in **Redirect URLs**. The login page now displays Supabase’s error code for other send failures; check **Authentication → Logs** for the corresponding details.
+The follow-up migration [`supabase/migrations/20260928120000_seed_current_public_content.sql`](supabase/migrations/20260928120000_seed_current_public_content.sql) ensures the current JSON-fallback entries are present: the Fall Engagement Fair, kickoff social, AI Agents event, and SquadPulse project. It inserts only entries without a matching title/date (or project title) and never updates or deletes existing content. Apply it after the base schema, and only after reviewing the existing rows.
 
-## 4. Configure Vercel
+These migrations are provided for review; they have **not** been applied to Production by this work.
 
-Set `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` in the Vercel project for the desired environments, then redeploy. Apply the migration to the same Supabase project before enabling the variables. Preview and production deployments may use separate Supabase projects if you want isolated content.
+## 3. Local development
 
-## Data behavior
+1. Copy `.env.example` to the ignored `.env.local` at the repository root.
+2. Fill in `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` using the existing Production project's public values. Do not use a service-role key, commit `.env.local`, or share the values in chat/logs.
+3. Restart `npm run dev` after changing environment values.
+4. Add `http://localhost:3000/auth/callback` to **Authentication → URL Configuration → Redirect URLs** in Supabase. Do not add a wildcard redirect.
 
-- Only published events/projects are visible to anonymous visitors. Admins can view drafts and archived records.
-- Event dates are stored as timestamps; an undated “TBD” event remains upcoming. Dated events move into the past timeline when their start time passes.
-- Project cover uploads are limited to JPEG, PNG, or WebP and 5 MB. The public site stores the Storage object path, not a user-provided image URL.
-- If Supabase variables are absent, the public site uses the existing JSON data. With variables configured, apply the migration before testing admin access.
+Local development reads and can write to the Production project, including private drafts for an authenticated admin. Any event/project save, publish, delete, or cover upload from local development affects live data. The UI displays a warning before editing. Vercel Preview remains read-only. `npm run dev` sets `NODE_ENV=development`; do not set `VERCEL_ENV=production` locally.
+
+If a Vercel Preview deployment is used later, it may be configured with the same Production Supabase project. The app remains read-only there. No branch has been pushed and no Preview environment has been configured as part of this work.
+
+## 4. Invite-only password and email sign-in
+
+1. In **Authentication → Providers → Email**, keep the Email provider enabled and disable public sign-ups. The app does not create users; only invited Auth users who are on `public.admin_users` can enter the dashboard.
+2. Ensure `lucas_brandao@student.uml.edu` exists as a Supabase Auth user, and that the matching lowercase email is active in `public.admin_users`. An allowlist row alone does not create an Auth user.
+3. Password sign-in is the normal login. If you are already signed in and need to set or change the password, use **Set/change password** in the dashboard; this uses the current Supabase session and does not send email. If signed out or the password is forgotten, use **Forgot or set password?** on the login page and follow the recovery email. Passwords are managed by Supabase Auth, not stored in this app; the form requires at least 12 characters. Routine password logins do not send email.
+4. A magic-link sign-in remains available as a fallback. Password recovery and the magic-link fallback use the existing Supabase email sender; custom SMTP is not required unless delivery becomes blocked, rate-limited, or unreliable.
+5. Allow the exact callback URLs you use, including `http://localhost:3000/auth/callback` for local testing and `https://aimlclub-five.vercel.app/auth/callback` for the production site. Add a custom domain or an approved Preview origin only if it is actually used. Keep the Supabase Site URL set to the public site origin. The Password Recovery email template must honor Supabase's requested callback, typically via `{{ .ConfirmationURL }}`.
+
+### Sign-in troubleshooting
+
+- **First password login says credentials are invalid:** Use **Forgot or set password?** once to establish the password for the existing Auth user. Do not create a second user or enable public sign-ups.
+- **Forgot/set password email doesn't arrive:** Check **Authentication → Logs**, the Password Recovery email template, and the existing email sender's limits. Configure custom SMTP only if delivery needs it.
+- **Expired or already-used link:** Both recovery and magic links are single-use. Request one fresh email and open its newest link promptly. If a new link fails immediately, check whether mail security scanning or link tracking consumes confirmation URLs.
+- **Magic-link fallback fails immediately:** Check that its email template honors the requested callback and does not hard-code `{{ .SiteURL }}`. Supabase documents email prefetching as a cause of consumed links.
+- **Email-send rate limit:** Stop retries until the limit resets. Check **Authentication → Logs** and the configured sender's quota; repeated requests will not bypass the limit.
+- **No Auth user:** Invite the address under **Authentication → Users** and complete that invitation. The `admin_users` row grants authorization only after login.
+- **Callback rejected:** Confirm the exact origin and `/auth/callback` path is in **Redirect URLs**. Check **Authentication → Logs** for the corresponding error.
+
+## 5. Production editing and verification
+
+Full create/edit/publish/archive/delete and cover-upload behavior is enabled in local development and on the Vercel Production deployment. Local development writes to Production; Vercel Preview uses Production in read-only mode. The owner will perform the broader live CRUD smoke test separately.

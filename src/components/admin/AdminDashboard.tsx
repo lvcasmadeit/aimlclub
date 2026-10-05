@@ -24,12 +24,15 @@ export function AdminDashboard({
   events,
   projects,
   hasLoadError,
+  writeMode,
 }: {
   email: string;
   events: AdminEvent[];
   projects: AdminProject[];
   hasLoadError: boolean;
+  writeMode: "production" | "local" | "read-only";
 }) {
+  const canWriteContent = writeMode !== "read-only";
   const publishedEvents = events.filter((event) => event.status === "published").length;
   const publishedProjects = projects.filter(
     (project) => project.visibility === "published",
@@ -54,6 +57,12 @@ export function AdminDashboard({
           >
             View site
           </Link>
+          <Link
+            href="/auth/update-password"
+            className="rounded-xl border border-border px-4 py-2.5 text-sm transition-colors hover:bg-hover"
+          >
+            Set/change password
+          </Link>
           <form action={signOutAdmin}>
             <button
               type="submit"
@@ -73,10 +82,27 @@ export function AdminDashboard({
           Keep the club timeline moving.
         </h1>
         <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted sm:text-base">
-          Draft updates, publish them to the public site, or archive entries that
-          should no longer appear.
+          {canWriteContent
+            ? "Draft updates, publish them to the public site, or archive entries that should no longer appear."
+            : "Review Production events and projects. Editing is available only from the Production deployment."}
         </p>
       </div>
+
+      {writeMode === "local" ? (
+        <p
+          role="alert"
+          className="rounded-2xl border border-border bg-background-soft/30 px-5 py-4 text-sm text-muted"
+        >
+          Local write mode · this dashboard is connected to Production Supabase. Saves, publishes, deletes, and cover uploads affect live data.
+        </p>
+      ) : !canWriteContent ? (
+        <p
+          role="status"
+          className="rounded-2xl border border-border bg-background-soft/30 px-5 py-4 text-sm text-muted"
+        >
+          Read-only mode · this deployment is connected to Production content.
+        </p>
+      ) : null}
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="rounded-2xl border border-border bg-background-soft/40 p-5">
@@ -124,14 +150,16 @@ export function AdminDashboard({
           <p className="text-sm text-muted">Dated events move to the past timeline automatically.</p>
         </div>
 
-        <details open className="rounded-2xl border border-border bg-background-soft/30 p-5 sm:p-7">
-          <summary className="cursor-pointer text-base font-semibold">
-            Add an event
-          </summary>
-          <div className="mt-6 border-t border-border pt-6">
-            <EventForm />
-          </div>
-        </details>
+        {canWriteContent ? (
+          <details open className="rounded-2xl border border-border bg-background-soft/30 p-5 sm:p-7">
+            <summary className="cursor-pointer text-base font-semibold">
+              Add an event
+            </summary>
+            <div className="mt-6 border-t border-border pt-6">
+              <EventForm />
+            </div>
+          </details>
+        ) : null}
 
         <div className="mt-4 space-y-3">
           {events.map((event) => (
@@ -149,8 +177,39 @@ export function AdminDashboard({
                 <Status>{event.status}</Status>
               </summary>
               <div className="mt-6 border-t border-border pt-6">
-                <EventForm event={event} />
-                <DeleteContentForm id={event.id} kind="event" />
+                {canWriteContent ? (
+                  <>
+                    <EventForm event={event} />
+                    <DeleteContentForm id={event.id} kind="event" />
+                  </>
+                ) : (
+                  <div className="space-y-4 text-sm leading-relaxed text-muted">
+                    <p>{event.description}</p>
+                    {event.summary ? <p>{event.summary}</p> : null}
+                    <div className="flex flex-wrap gap-4">
+                      {event.rsvp_url ? (
+                        <a
+                          href={event.rsvp_url}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="underline underline-offset-4"
+                        >
+                          RSVP link
+                        </a>
+                      ) : null}
+                      {event.recap_url ? (
+                        <a
+                          href={event.recap_url}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="underline underline-offset-4"
+                        >
+                          Recap link
+                        </a>
+                      ) : null}
+                    </div>
+                  </div>
+                )}
               </div>
             </details>
           ))}
@@ -170,17 +229,23 @@ export function AdminDashboard({
             </p>
             <h2 className="mt-2 text-2xl font-semibold">Projects</h2>
           </div>
-          <p className="text-sm text-muted">Upload a cover and add useful links and tags.</p>
+          <p className="text-sm text-muted">
+            {canWriteContent
+              ? "Upload a cover and add useful links and tags."
+              : "Review project descriptions, links, tags, and visibility."}
+          </p>
         </div>
 
-        <details open className="rounded-2xl border border-border bg-background-soft/30 p-5 sm:p-7">
-          <summary className="cursor-pointer text-base font-semibold">
-            Add a project
-          </summary>
-          <div className="mt-6 border-t border-border pt-6">
-            <ProjectForm />
-          </div>
-        </details>
+        {canWriteContent ? (
+          <details open className="rounded-2xl border border-border bg-background-soft/30 p-5 sm:p-7">
+            <summary className="cursor-pointer text-base font-semibold">
+              Add a project
+            </summary>
+            <div className="mt-6 border-t border-border pt-6">
+              <ProjectForm />
+            </div>
+          </details>
+        ) : null}
 
         <div className="mt-4 space-y-3">
           {projects.map((project) => (
@@ -198,8 +263,49 @@ export function AdminDashboard({
                 <Status>{project.visibility}</Status>
               </summary>
               <div className="mt-6 border-t border-border pt-6">
-                <ProjectForm project={project} />
-                <DeleteContentForm id={project.id} kind="project" />
+                {canWriteContent ? (
+                  <>
+                    <ProjectForm project={project} />
+                    <DeleteContentForm id={project.id} kind="project" />
+                  </>
+                ) : (
+                  <div className="space-y-4 text-sm leading-relaxed text-muted">
+                    <p>{project.description}</p>
+                    <p>{project.tags.length ? project.tags.join(" · ") : "No tags"}</p>
+                    <div className="flex flex-wrap gap-4">
+                      {project.github_url ? (
+                        <a
+                          href={project.github_url}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="underline underline-offset-4"
+                        >
+                          GitHub
+                        </a>
+                      ) : null}
+                      {project.demo_url ? (
+                        <a
+                          href={project.demo_url}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="underline underline-offset-4"
+                        >
+                          Demo
+                        </a>
+                      ) : null}
+                      {project.cover_image_url ? (
+                        <a
+                          href={project.cover_image_url}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="underline underline-offset-4"
+                        >
+                          Cover image
+                        </a>
+                      ) : null}
+                    </div>
+                  </div>
+                )}
               </div>
             </details>
           ))}
@@ -212,7 +318,9 @@ export function AdminDashboard({
       </section>
 
       <footer className="border-t border-border py-6 text-xs text-muted">
-        Changes to published entries appear on the public site after saving.
+        {canWriteContent
+          ? "Changes to published entries appear on the public site after saving."
+          : "This deployment is read-only; manage content from the Production deployment."}
       </footer>
     </main>
   );

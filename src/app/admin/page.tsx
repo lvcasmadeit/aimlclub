@@ -4,6 +4,7 @@ import { AdminDashboard } from "@/components/admin/AdminDashboard";
 import { signOutAdmin } from "@/app/admin/actions";
 import { getAdminContent } from "@/lib/admin/content";
 import { getAdminAccess } from "@/lib/admin/access";
+import { getAdminWriteMode } from "@/lib/admin/write-access";
 
 export const dynamic = "force-dynamic";
 
@@ -86,6 +87,7 @@ export default async function AdminPage() {
   return (
     <AdminDashboard
       email={access.email}
+      writeMode={getAdminWriteMode()}
       events={content.events}
       projects={content.projects}
       hasLoadError={Boolean(content.error)}

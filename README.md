@@ -16,7 +16,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## Admin dashboard
 
-An invite-only dashboard implementation exists at `/admin`, but Supabase is not configured for the current production workflow and the dashboard is still in progress. Keep `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` unset to serve the public JSON fallback content. Once the owner is ready to enable Supabase-backed authentication, event/project publishing, and cover uploads, follow [`SUPABASE_SETUP.md`](SUPABASE_SETUP.md). The initial admin allowlist includes `lucas_brandao@student.uml.edu`.
+The invite-only `/admin` dashboard manages events and projects using the existing Production Supabase project, shared with local development and any future Vercel Preview deployment. Local development and the Vercel Production deployment can mutate content through the app; Vercel Preview is read-only. Local edits affect Production immediately. This is an app-level guard, not database isolation: an authenticated allowlisted admin can still write directly through Supabase APIs. Production schema/data status has not been verified, so review [`SUPABASE_SETUP.md`](SUPABASE_SETUP.md) before applying SQL or running live CRUD tests. Local development uses the same Production project via ignored `.env.local`; never commit populated environment files or add a service-role key. Admin sign-in uses Supabase email/password, with magic-link fallback and email password recovery; public registration stays disabled. The initial admin allowlist includes `lucas_brandao@student.uml.edu`.
 
 Other scripts:
 

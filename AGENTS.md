@@ -15,13 +15,13 @@ Repo: https://github.com/lvcasmadeit/aimlclub
 
 Next.js 16 App Router (`src/app`), React 19, TypeScript strict, Tailwind CSS v4, Motion (`motion/react`), and React Three Fiber/Three.js for the existing visual scenes. Path alias `@/*` → `src/*`.
 
-Supabase SSR/client support and an admin dashboard exist in the codebase, but Supabase is not configured for the current production workflow. Until the owner explicitly enables it, the public site uses JSON fallback content and the dashboard remains unfinished.
+Supabase SSR/client support and the `/admin` dashboard manage events and projects. Admin authentication uses Supabase email/password as the normal sign-in, with magic-link fallback and email password recovery; no public registration is available and the allowlist remains Lucas-only. The owner has directed that the existing Production Supabase project be the shared database for Production, local development, and any Preview deployment. The app allows content mutations in local development (`NODE_ENV === "development"`) and on the Vercel Production deployment; Vercel Preview dashboards are read-only. Local writes affect Production data. This is an application-level guard, not database isolation: RLS still permits an authenticated allowlisted admin to write directly through Supabase APIs. Production schema/data status is unverified; do not apply migrations or perform live CRUD tests without the owner's explicit approval.
 
 ## Git and deploy
 
 - **`main`** → Vercel production. **`dev`** → continued work and preview deploys.
 - Do not merge to `main` unless explicitly asked. Do not invent GitHub/LinkedIn URLs for people.
-- Keep `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` unset in production until the owner confirms Supabase setup is complete. With both set, public events and projects are read from Supabase rather than their JSON fallback files.
+- The `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` values are currently configured for Vercel Production. Do not unset, rotate, or change them without explicit owner approval. They are public client values; never add a service-role key to the app or commit populated `.env` files. Local development may use the same Production project through an ignored `.env.local`; do not expose or print its values. With both variables set, public events and projects read from Supabase.
 - Vercel project is already linked (`.vercel/` is gitignored).
 
 ## Content

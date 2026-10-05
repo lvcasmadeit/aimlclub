@@ -9,9 +9,9 @@ export const dynamic = "force-dynamic";
 export default async function AdminLoginPage({
   searchParams,
 }: {
-  searchParams: Promise<{ error?: string }>;
+  searchParams: Promise<{ error?: string; reason?: string }>;
 }) {
-  const { error } = await searchParams;
+  const { error, reason } = await searchParams;
   const configured = isSupabaseConfigured();
   const access = configured ? await getAdminAccess() : null;
 
@@ -33,8 +33,9 @@ export default async function AdminLoginPage({
           Sign in to manage club updates.
         </h1>
         <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted sm:text-base">
-          Sign-in links are sent only to accounts invited in Supabase. No public
-          registration is available.
+          Sign in with your password. While signed in, you can set or change it
+          from the dashboard; email recovery and a sign-in link remain available.
+          No public registration is available.
         </p>
 
         {!configured ? (
@@ -55,7 +56,10 @@ export default async function AdminLoginPage({
                 This account is authenticated but is not on the admin allowlist.
               </p>
             ) : null}
-            <AdminLoginForm callbackError={error === "callback"} />
+            <AdminLoginForm
+              callbackError={error === "callback"}
+              callbackErrorReason={reason}
+            />
           </>
         )}
       </div>

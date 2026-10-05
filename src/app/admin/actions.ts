@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { z } from "zod";
 import type { AdminActionState } from "@/lib/admin/action-state";
 import { getAdminAccess } from "@/lib/admin/access";
+import { canWriteAdminContent } from "@/lib/admin/write-access";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
@@ -110,6 +111,13 @@ function denied(message = "Your session is no longer authorized. Sign in again."
   return { status: "error", message };
 }
 
+function readOnly(): AdminActionState {
+  return {
+    status: "error",
+    message: "Content changes are disabled outside the Production deployment.",
+  };
+}
+
 function contentId(formData: FormData) {
   const result = z.string().uuid().safeParse(field(formData, "id"));
   return result.success ? result.data : null;
@@ -119,6 +127,8 @@ export async function saveEvent(
   _previousState: AdminActionState,
   formData: FormData,
 ): Promise<AdminActionState> {
+  if (!canWriteAdminContent()) return readOnly();
+
   const access = await getAdminAccess();
   if (access.status !== "admin") return denied();
 
@@ -183,6 +193,8 @@ export async function saveProject(
   _previousState: AdminActionState,
   formData: FormData,
 ): Promise<AdminActionState> {
+  if (!canWriteAdminContent()) return readOnly();
+
   const access = await getAdminAccess();
   if (access.status !== "admin") return denied();
 
@@ -276,6 +288,8 @@ export async function deleteEvent(
   _previousState: AdminActionState,
   formData: FormData,
 ): Promise<AdminActionState> {
+  if (!canWriteAdminContent()) return readOnly();
+
   const access = await getAdminAccess();
   if (access.status !== "admin") return denied();
 
@@ -303,6 +317,8 @@ export async function deleteProject(
   _previousState: AdminActionState,
   formData: FormData,
 ): Promise<AdminActionState> {
+  if (!canWriteAdminContent()) return readOnly();
+
   const access = await getAdminAccess();
   if (access.status !== "admin") return denied();
 
