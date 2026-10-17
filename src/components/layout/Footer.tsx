@@ -13,8 +13,7 @@ const socials = [
   { label: "Instagram", href: site.instagram },
   { label: "GitHub", href: site.github },
   { label: "LinkedIn", href: site.linkedin },
-  { label: "Campus Groups", href: site.campusGroups },
-  { label: "Email", href: `mailto:${site.email}` },
+  { label: "CampusGroups", href: site.campusGroups },
 ];
 
 export function Footer() {
@@ -49,12 +48,8 @@ export function Footer() {
             <a
               key={social.label}
               href={social.href}
-              target={social.href.startsWith("mailto:") ? undefined : "_blank"}
-              rel={
-                social.href.startsWith("mailto:")
-                  ? undefined
-                  : "noopener noreferrer"
-              }
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-sm text-muted transition-colors hover:text-foreground"
             >
               {social.label}

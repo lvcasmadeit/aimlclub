@@ -61,13 +61,9 @@ src/
 - The meetings timeline scrolls horizontally on desktop, centering the next event or the history as a group when no upcoming events remain; the next-event node glows. It stacks vertically on mobile.
 - The hero pairs the club identity with a desktop loss-landscape visualization; the About section uses theme-specific 3D glass visuals.
 
-## Contact form
+## Contact channels
 
-The contact form opens the visitor's email client via `mailto:` (no backend required).
-To collect submissions server-side instead, swap the submit handler in
-[`src/components/sections/ContactForm.tsx`](src/components/sections/ContactForm.tsx)
-for a service like [Formspree](https://formspree.io) or
-[Resend](https://resend.com).
+The contact section prioritizes Discord for student questions and links Instagram, GitHub, LinkedIn, and the CampusGroups directory. No email form or address is published until the club verifies an official inbox.
 
 ## Deploy
 
