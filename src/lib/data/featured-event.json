@@ -1,15 +1,15 @@
 {
-  "eventId": "ai-agents",
-  "title": "AI Agents",
+  "eventId": "hack-1-hackachusetts-warmup",
+  "title": "Hack #1 | The Hackachusetts Warmup",
   "trailer": {
-    "src": "/media/ai-agents-trailer.mp4",
-    "poster": "/media/ai-agents-trailer-poster.jpg",
-    "label": "AI Agents event trailer"
+    "src": "/media/hackachusetts-warmup-trailer.mp4",
+    "poster": "/media/hackachusetts-warmup-trailer-poster.jpg",
+    "label": "Hack #1 | The Hackachusetts Warmup trailer"
   },
   "flyer": {
-    "src": "/media/ai-agents-flyer.jpg",
+    "src": "/media/hack1flyer.jpeg",
     "width": 1728,
     "height": 2304,
-    "alt": "AI Agents flyer: learn how to utilize the power of agents to build anything you can imagine. October 8, 2026 at 6:30 PM in Olsen-330. QR codes for the club website and Discord."
+    "alt": "Hack #1 flyer for the Hackachusetts Warmup on Wednesday, October 21, from 6:30–8:30 PM at Olsen-330. Suggested tracks: energy, health and biotech, robotics, education, and open innovation."
   }
 }
